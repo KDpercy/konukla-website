@@ -292,6 +292,23 @@
   .footer-links { display: flex; gap: 24px; }
   .footer-links a { font-size: 12px; color: var(--muted); transition: color 0.15s; font-weight: 300; }
   .footer-links a:hover { color: var(--white); }
+
+  /* ── LEGAL FOOTER ── */
+  .legal-footer { border-top: 1px solid var(--rule); background: var(--bg-2); }
+  .legal-inner { max-width: 1120px; margin: 0 auto; padding: 56px 48px 32px; }
+  .legal-cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; }
+  .legal-col h4 { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--off); margin-bottom: 16px; }
+  .legal-col p, .legal-col a { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.9; display: block; }
+  .legal-col a { transition: color 0.15s; }
+  .legal-col a:hover { color: var(--white); }
+  .legal-brand { font-size: 16px; font-weight: 600; letter-spacing: -0.03em; color: var(--white); display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .legal-bottom { max-width: 1120px; margin: 0 auto; padding: 20px 48px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .legal-bottom p { font-size: 12px; color: var(--muted); font-weight: 300; }
+  @media (max-width: 860px) {
+    .legal-inner { padding: 40px 20px 24px; }
+    .legal-cols { grid-template-columns: 1fr; gap: 28px; }
+    .legal-bottom { padding: 20px; flex-direction: column; text-align: center; }
+  }
  
   /* ── REVEAL ── */
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -377,7 +394,7 @@
   <div class="ticker-track" id="ticker-track">
     <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">Masa QR siparişi</span><span class="en-text lang-hidden">QR table ordering</span></span>
     <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">Gerçek zamanlı mutfak ekranı</span><span class="en-text lang-hidden">Real-time kitchen display</span></span>
-    <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">Stripe ödeme entegrasyonu</span><span class="en-text lang-hidden">Stripe payments</span></span>
+    <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">iyzico ödeme entegrasyonu</span><span class="en-text lang-hidden">iyzico payments</span></span>
     <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">Çok lokasyonlu menü yönetimi</span><span class="en-text lang-hidden">Multi-location menus</span></span>
     <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">Sadece %2,5 komisyon</span><span class="en-text lang-hidden">2.5% commission only</span></span>
     <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">Aylık ücret yok</span><span class="en-text lang-hidden">No monthly fee</span></span>
@@ -385,7 +402,7 @@
     <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">BTM İstanbul destekli</span><span class="en-text lang-hidden">Backed by BTM Istanbul</span></span>
     <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">Masa QR siparişi</span><span class="en-text lang-hidden">QR table ordering</span></span>
     <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">Gerçek zamanlı mutfak ekranı</span><span class="en-text lang-hidden">Real-time kitchen display</span></span>
-    <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">Stripe ödeme entegrasyonu</span><span class="en-text lang-hidden">Stripe payments</span></span>
+    <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">iyzico ödeme entegrasyonu</span><span class="en-text lang-hidden">iyzico payments</span></span>
     <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">Çok lokasyonlu menü yönetimi</span><span class="en-text lang-hidden">Multi-location menus</span></span>
     <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">Sadece %2,5 komisyon</span><span class="en-text lang-hidden">2.5% commission only</span></span>
     <span class="ticker-item"><span class="ticker-dot"></span><span class="tr-text">Aylık ücret yok</span><span class="en-text lang-hidden">No monthly fee</span></span>
@@ -505,8 +522,8 @@
       <div class="feat-card">
         <div class="feat-title tr-text">Türk ödeme desteği</div>
         <div class="feat-title en-text lang-hidden">Turkish payment support</div>
-        <div class="feat-body tr-text">Kart, Apple Pay ve Google Pay. Stripe Link, tekrar gelen müşterileri hatırlayarak tek dokunuşta ödeme sağlar.</div>
-        <div class="feat-body en-text lang-hidden">Card, Apple Pay, and Google Pay. Stripe Link remembers returning customers for one-tap checkout.</div>
+        <div class="feat-body tr-text">Kart, Apple Pay ve Google Pay. iyzico altyapısıyla yerel kartlar ve taksit seçenekleri tam desteklenir.</div>
+        <div class="feat-body en-text lang-hidden">Card, Apple Pay, and Google Pay. Full support for local cards and installments via iyzico.</div>
       </div>
       <div class="feat-card">
         <div class="feat-title tr-text">Özelleştirme seçenekleri</div>
@@ -523,8 +540,8 @@
       <div class="feat-card">
         <div class="feat-title tr-text">PCI sorumluluğu yok</div>
         <div class="feat-title en-text lang-hidden">Zero PCI liability</div>
-        <div class="feat-body tr-text">Stripe altyapısıyla çalışır. Kart bilgileri sunucularınıza asla ulaşmaz. Tam uyumluluk başından itibaren dahildir.</div>
-        <div class="feat-body en-text lang-hidden">Powered by Stripe. Card data never touches your servers. Full compliance is built in from day one.</div>
+        <div class="feat-body tr-text">iyzico altyapısıyla çalışır. Kart bilgileri sunucularınıza asla ulaşmaz. Tam uyumluluk başından itibaren dahildir.</div>
+        <div class="feat-body en-text lang-hidden">Powered by iyzico. Card data never touches your servers. Full compliance is built in from day one.</div>
       </div>
     </div>
   </div>
@@ -657,21 +674,53 @@
   </div>
 </div>
  
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">
-    <svg width="22" height="22"><use href="#logo-mark-dark"/></svg>
-    Konukla
+<!-- LEGAL FOOTER -->
+<footer class="legal-footer">
+  <div class="legal-inner">
+    <div class="legal-cols">
+      <div class="legal-col">
+        <div class="legal-brand">
+          <svg width="22" height="22"><use href="#logo-mark-dark"/></svg>
+          Konukla
+        </div>
+        <!-- TODO: Replace with your registered legal entity details before iyzico submission -->
+        <p>TODO: Yasal Şirket Unvanı</p>
+        <p>TODO: Kayıtlı İş Adresi, İlçe/İl, Türkiye</p>
+        <p>MERSİS: TODO</p>
+        <p style="margin-top:14px">
+          <span class="tr-text">İstanbul'da inşa edildi. BTM ve İTO desteğiyle.</span>
+          <span class="en-text lang-hidden">Built in Istanbul. Backed by BTM and ITO.</span>
+        </p>
+      </div>
+
+      <div class="legal-col">
+        <h4><span class="tr-text">Yasal</span><span class="en-text lang-hidden">Legal</span></h4>
+        <a href="/legal/mesafeli-satis-sozlesmesi.html">Mesafeli Satış Sözleşmesi</a>
+        <a href="/legal/on-bilgilendirme-formu.html">Ön Bilgilendirme Formu</a>
+        <a href="/legal/iptal-ve-iade-kosullari.html">İptal ve İade Koşulları</a>
+        <a href="/legal/teslimat-kosullari.html">Teslimat ve İfa Koşulları</a>
+      </div>
+
+      <div class="legal-col">
+        <h4><span class="tr-text">Politikalar</span><span class="en-text lang-hidden">Policies</span></h4>
+        <a href="/legal/gizlilik-politikasi.html">Gizlilik Politikası</a>
+        <a href="/legal/kvkk-aydinlatma-metni.html">KVKK Aydınlatma Metni</a>
+        <a href="/legal/cerez-politikasi.html">Çerez Politikası</a>
+        <a href="/legal/kullanim-kosullari.html">Kullanım Koşulları</a>
+        <a href="mailto:destek@konukla.com" style="margin-top:8px">destek@konukla.com</a>
+      </div>
+    </div>
   </div>
-  <div class="footer-meta tr-text">İstanbul'da inşa edildi. BTM ve İTO desteğiyle.</div>
-  <div class="footer-meta en-text lang-hidden">Built in Istanbul. Backed by BTM and ITO.</div>
-  <div class="footer-links">
-    <a href="mailto:hello@konukla.com">hello@konukla.com</a>
-    <a href="#investors"><span class="tr-text">Yatırımcılar</span><span class="en-text lang-hidden">Investors</span></a>
+  <div class="legal-bottom">
+    <p>© <span id="year"></span> Konukla. <span class="tr-text">Tüm hakları saklıdır.</span><span class="en-text lang-hidden">All rights reserved.</span></p>
+    <p><span class="tr-text">Ödemeler iyzico altyapısı ile güvenle alınır.</span><span class="en-text lang-hidden">Payments secured by iyzico.</span></p>
   </div>
 </footer>
  
 <script>
+  // ── Footer year ──
+  document.getElementById('year').textContent = new Date().getFullYear();
+
   // ── NAV scroll ──
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
