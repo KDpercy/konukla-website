@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Konukla — Türkiye restoranları için QR sipariş altyapısı</title>
+<meta name="description" content="Konukla, restoranlar için QR kodla masadan sipariş ve ödeme altyapısı. Müşteriler telefonlarından sipariş verir, iyzico ile öder; siparişler anında mutfağa düşer. Uygulama yok, aylık ücret yok.">
+<link rel="canonical" href="https://konukla.com/">
 <link rel="icon" type="image/svg+xml" href="/assets/konukla-favicon.svg">
 <link rel="apple-touch-icon" href="/assets/konukla-icon-dark.svg">
 <meta property="og:type" content="website">
@@ -296,6 +298,17 @@
   .contact-form input:focus { border-color: rgba(255,255,255,0.25); }
   .contact-form input::placeholder { color: var(--muted); }
   .form-note { font-size: 12px; color: var(--muted); margin-top: 10px; font-weight: 300; }
+  .consent { display: flex; gap: 9px; align-items: flex-start; font-size: 12px; color: var(--muted); font-weight: 300; line-height: 1.5; cursor: pointer; margin-top: 4px; }
+  .consent input { margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
+  .consent a { color: var(--accent-l); text-decoration: underline; }
+
+  /* ── COOKIE BANNER ── */
+  .cookie-banner { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 300; max-width: 560px; margin: 0 auto; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; display: none; align-items: center; gap: 16px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); }
+  .cookie-banner.show { display: flex; }
+  .cookie-banner p { font-size: 12.5px; color: var(--off); font-weight: 300; line-height: 1.6; }
+  .cookie-banner a { color: var(--accent-l); text-decoration: underline; }
+  .cookie-banner button { flex-shrink: 0; background: var(--white); color: var(--bg); border: none; border-radius: 5px; padding: 9px 18px; font-family: var(--font); font-size: 13px; font-weight: 500; cursor: pointer; }
+  @media (max-width: 560px) { .cookie-banner { flex-direction: column; align-items: stretch; text-align: center; } }
  
   /* ── FOOTER ── */
   footer {
@@ -359,8 +372,8 @@
     <a href="/demo.html" data-tr="Demo" data-en="Demo">Demo</a>
     <a href="#contact" class="nav-btn" id="nav-cta" data-tr="Erken erişim" data-en="Get early access">Erken erişim</a>
     <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('tr')">TR</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" onclick="setLang('tr')" aria-label="Türkçe" lang="tr">TR</button>
+      <button class="lang-btn" onclick="setLang('en')" aria-label="English" lang="en">EN</button>
     </div>
   </div>
 </nav>
@@ -665,12 +678,19 @@
       <input type="text" id="input-restaurant" placeholder="Restoran adı" required>
       <input type="email" id="input-email" placeholder="E-posta adresi" required>
       <input type="tel" id="input-phone" placeholder="Telefon numarası">
+      <label class="consent">
+        <input type="checkbox" id="input-consent" required>
+        <span>
+          <span class="tr-text"><a href="/legal/gizlilik-politikasi.html" target="_blank">Gizlilik Politikası</a> ve <a href="/legal/kvkk-aydinlatma-metni.html" target="_blank">KVKK Aydınlatma Metni</a>'ni okudum; bilgilerimin iletişim amacıyla işlenmesini onaylıyorum.</span>
+          <span class="en-text lang-hidden">I have read the <a href="/legal/gizlilik-politikasi.html" target="_blank">Privacy Policy</a> and <a href="/legal/kvkk-aydinlatma-metni.html" target="_blank">KVKK notice</a>, and consent to my information being processed for contact purposes.</span>
+        </span>
+      </label>
       <button type="submit" class="btn btn-white" id="submit-btn" style="align-self:flex-start;margin-top:4px">
         <span class="tr-text">Kurucu oranını al</span>
         <span class="en-text lang-hidden">Claim founding rate</span>
       </button>
     </form>
-    <p class="form-note reveal">
+    <p class="form-note reveal" id="form-status">
       <span class="tr-text">Ödeme gerekmez. 48 saat içinde geri dönüyoruz.</span>
       <span class="en-text lang-hidden">No payment required. We'll be in touch within 48 hours.</span>
     </p>
@@ -717,9 +737,29 @@
   </div>
 </footer>
  
+<!-- COOKIE / KVKK BANNER -->
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite">
+  <p>
+    <span class="tr-text">Bu site, hizmetin çalışması ve güvenliği için zorunlu çerezler kullanır. Detaylar için <a href="/legal/cerez-politikasi.html">Çerez Politikası</a>.</span>
+    <span class="en-text lang-hidden">This site uses essential cookies for functionality and security. See our <a href="/legal/cerez-politikasi.html">Cookie Policy</a> for details.</span>
+  </p>
+  <button onclick="acceptCookies()"><span class="tr-text">Tamam</span><span class="en-text lang-hidden">Got it</span></button>
+</div>
+
 <script>
   // ── Footer year ──
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ── Cookie banner (KVKK) ──
+  try {
+    if (!localStorage.getItem('konukla_cookie_ok')) {
+      document.getElementById('cookie-banner').classList.add('show');
+    }
+  } catch (e) { /* localStorage unavailable */ }
+  function acceptCookies() {
+    try { localStorage.setItem('konukla_cookie_ok', '1'); } catch (e) {}
+    document.getElementById('cookie-banner').classList.remove('show');
+  }
 
   // ── NAV scroll ──
   const nav = document.getElementById('nav');
@@ -757,13 +797,40 @@
     document.getElementById('input-phone').placeholder = pMap[lang].phone;
   }
  
-  // ── Form submit ──
-  function handleSubmit(e) {
+  // ── Form submit → POST lead to the Konukla app ──
+  const EARLY_ACCESS_ENDPOINT = 'https://admin.konukla.com/api/early-access';
+  async function handleSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
-    btn.innerHTML = currentLang === 'tr' ? 'Listeye eklendiniz' : 'You\'re on the list';
-    btn.style.background = '#eee';
+    const status = document.getElementById('form-status');
+    const payload = {
+      restaurantName: document.getElementById('input-restaurant').value.trim(),
+      email: document.getElementById('input-email').value.trim(),
+      phone: document.getElementById('input-phone').value.trim(),
+      consent: document.getElementById('input-consent').checked,
+    };
     btn.disabled = true;
+    const sending = currentLang === 'tr' ? 'Gönderiliyor…' : 'Sending…';
+    btn.innerHTML = sending;
+    try {
+      const res = await fetch(EARLY_ACCESS_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('bad status');
+      btn.innerHTML = currentLang === 'tr' ? 'Listeye eklendiniz ✓' : "You're on the list ✓";
+      btn.style.background = '#eee';
+      status.innerHTML = currentLang === 'tr'
+        ? '<span>Teşekkürler! 48 saat içinde size döneceğiz.</span>'
+        : "<span>Thanks! We'll be in touch within 48 hours.</span>";
+    } catch (err) {
+      btn.disabled = false;
+      btn.innerHTML = currentLang === 'tr' ? 'Kurucu oranını al' : 'Claim founding rate';
+      status.innerHTML = currentLang === 'tr'
+        ? '<span style="color:#e57373">Gönderilemedi. Lütfen tekrar deneyin veya destek@konukla.com adresine yazın.</span>'
+        : '<span style="color:#e57373">Could not send. Please try again or email destek@konukla.com.</span>';
+    }
   }
 </script>
 </body>
