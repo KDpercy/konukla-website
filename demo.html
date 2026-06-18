@@ -22,8 +22,8 @@
 
   /* Top bar */
   .topbar { position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:14px 20px; background:rgba(10,10,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--rule); }
-  .topbar .brand { font-size:18px; font-weight:600; letter-spacing:-0.04em; }
-  .topbar .brand::after { content:''; display:inline-block; width:6px; height:6px; border-radius:50%; margin-left:3px; background:radial-gradient(circle at 35% 32%, #F0A35E, #E2592B 78%); box-shadow:0 0 12px rgba(240,163,94,0.4); }
+  .topbar .brand { display:flex; align-items:center; }
+  .topbar .brand img { height:20px; width:auto; display:block; }
   .topbar .right { display:flex; align-items:center; gap:14px; }
   .topbar .home { font-size:13px; color:var(--off); }
   .lang-switcher { display:flex; border:1px solid var(--rule); border-radius:5px; overflow:hidden; }
@@ -92,7 +92,7 @@
 <body>
 
 <div class="topbar">
-  <a href="/" class="brand">Konukla</a>
+  <a href="/" class="brand" aria-label="Konukla"><img src="/assets/konukla-logo-on-dark.png" alt="Konukla"></a>
   <div class="right">
     <a href="/" class="home"><span class="tr-text">← Ana sayfa</span><span class="en-text lang-hidden">← Home</span></a>
     <div class="lang-switcher">

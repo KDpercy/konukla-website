@@ -7,13 +7,14 @@
 <meta name="description" content="Konukla, restoranlar için QR kodla masadan sipariş ve ödeme altyapısı. Müşteriler telefonlarından sipariş verir, iyzico ile öder; siparişler anında mutfağa düşer. Uygulama yok, aylık ücret yok.">
 <link rel="canonical" href="https://konukla.com/">
 <link rel="icon" type="image/svg+xml" href="/assets/konukla-favicon.svg">
-<link rel="apple-touch-icon" href="/assets/konukla-icon-dark.svg">
+<link rel="apple-touch-icon" href="/assets/konukla-icon-dark.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Konukla — Türkiye restoranları için QR sipariş altyapısı">
 <meta property="og:description" content="Müşteriler QR kodu okutup telefonlarından sipariş veriyor ve iyzico ile ödüyor. Uygulama yok, aylık ücret yok.">
-<meta property="og:image" content="/assets/konukla-icon-dark.svg">
+<meta property="og:image" content="https://konukla.com/assets/konukla-icon-dark.png">
 <meta property="og:url" content="https://konukla.com">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://konukla.com/assets/konukla-icon-dark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -54,11 +55,9 @@
     border-bottom: 1px solid var(--rule);
   }
   .nav-logo {
-    font-size: 18px; font-weight: 600;
-    letter-spacing: -0.04em; color: var(--white);
-    margin-right: auto;
-    display: flex; align-items: baseline;
+    margin-right: auto; display: flex; align-items: center;
   }
+  .nav-logo img { height: 22px; width: auto; display: block; }
   /* Orange-sphere brand dot — the "." in the Konukla wordmark */
   .brand-dot {
     display: inline-block; border-radius: 50%;
@@ -329,7 +328,8 @@
   .legal-col p, .legal-col a { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.9; display: block; }
   .legal-col a { transition: color 0.15s; }
   .legal-col a:hover { color: var(--white); }
-  .legal-brand { font-size: 18px; font-weight: 600; letter-spacing: -0.04em; color: var(--white); margin-bottom: 14px; }
+  .legal-brand { margin-bottom: 14px; }
+  .legal-brand img { height: 26px; width: auto; display: block; }
   .legal-bottom { max-width: 1120px; margin: 0 auto; padding: 20px 48px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
   .legal-bottom p { font-size: 12px; color: var(--muted); font-weight: 300; }
   @media (max-width: 860px) {
@@ -364,7 +364,7 @@
  
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo">Konukla<span class="brand-dot"></span></div>
+  <a href="#" class="nav-logo" aria-label="Konukla"><img src="/assets/konukla-logo-on-dark.png" alt="Konukla"></a>
   <div class="nav-links">
     <a href="#how" data-tr="Nasıl çalışır" data-en="How it works">Nasıl çalışır</a>
     <a href="#features" data-tr="Özellikler" data-en="Features">Özellikler</a>
@@ -702,7 +702,7 @@
   <div class="legal-inner">
     <div class="legal-cols">
       <div class="legal-col">
-        <div class="legal-brand">Konukla<span class="brand-dot"></span></div>
+        <div class="legal-brand"><img src="/assets/konukla-logo-on-dark.png" alt="Konukla"></div>
         <!-- TODO: Replace with your registered legal entity details before iyzico submission -->
         <p>TODO: Yasal Şirket Unvanı</p>
         <p>TODO: Kayıtlı İş Adresi, İlçe/İl, Türkiye</p>
