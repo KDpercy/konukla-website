@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Konukla</title>
+<title>Konukla — Türkiye restoranları için QR sipariş altyapısı</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g' cx='40%25' cy='35%25'%3E%3Cstop offset='0%25' stop-color='%23F2A65A'/%3E%3Cstop offset='55%25' stop-color='%23E2612E'/%3E%3Cstop offset='100%25' stop-color='%23C9521F'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='%23241B16'/%3E%3Ccircle cx='50' cy='50' r='27' fill='url(%23g)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -16,8 +17,8 @@
     --white:   #FFFFFF;
     --off:     rgba(255,255,255,0.55);
     --muted:   rgba(255,255,255,0.28);
-    --accent:  #3B4EF0;
-    --accent-l:#6473F5;
+    --accent:  #E2612E;
+    --accent-l:#F0853F;
     --font:    'Sora', -apple-system, sans-serif;
   }
   html { scroll-behavior: smooth; }
@@ -44,10 +45,17 @@
     border-bottom: 1px solid var(--rule);
   }
   .nav-logo {
-    font-size: 16px; font-weight: 600;
-    letter-spacing: -0.03em; color: var(--white);
+    font-size: 18px; font-weight: 600;
+    letter-spacing: -0.04em; color: var(--white);
     margin-right: auto;
-    display: flex; align-items: center; gap: 10px;
+    display: flex; align-items: baseline;
+  }
+  /* Orange-sphere brand dot — the "." in the Konukla wordmark */
+  .brand-dot {
+    display: inline-block; border-radius: 50%;
+    width: 0.34em; height: 0.34em; margin-left: 0.06em;
+    background: radial-gradient(circle at 38% 32%, #F2A65A, #E2612E 55%, #C9521F);
+    box-shadow: 0 0 14px rgba(226,97,46,0.45);
   }
   .nav-links { display: flex; align-items: center; gap: 32px; }
   .nav-links a {
@@ -89,8 +97,8 @@
   .hero-video {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
-    object-fit: cover; object-position: center;
-    opacity: 0.35;
+    background-size: cover; background-position: center;
+    opacity: 0.32;
   }
   .hero-overlay {
     position: absolute; inset: 0;
@@ -232,8 +240,8 @@
   .pricing-grid { margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 680px; }
   .price-card { border: 1px solid var(--rule); border-radius: 8px; padding: 36px; transition: border-color 0.2s; }
   .price-card:hover { border-color: rgba(255,255,255,0.18); }
-  .price-card.hi { border-color: rgba(59,78,240,0.5); background: rgba(59,78,240,0.06); }
-  .price-card.hi:hover { border-color: rgba(59,78,240,0.8); }
+  .price-card.hi { border-color: rgba(226,97,46,0.5); background: rgba(226,97,46,0.06); }
+  .price-card.hi:hover { border-color: rgba(226,97,46,0.8); }
   .price-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
   .price-card.hi .price-tag { color: var(--accent-l); }
   .price-n { font-size: 46px; font-weight: 600; letter-spacing: -0.04em; color: var(--white); line-height: 1; }
@@ -248,14 +256,14 @@
   .price-list li::before { content: '—'; color: var(--muted); font-size: 10px; flex-shrink: 0; }
   .price-card.hi .price-list li::before { color: var(--accent-l); }
   .price-btn {
-    width: 100%; padding: 11px; border-radius: 5px;
+    display: block; width: 100%; padding: 11px; border-radius: 5px;
     font-family: var(--font); font-size: 13px; font-weight: 500;
     cursor: pointer; border: 1px solid var(--rule);
-    background: transparent; color: var(--off);
-    transition: all 0.15s; letter-spacing: -0.01em;
+    background: transparent; color: var(--off); text-align: center;
+    text-decoration: none; transition: all 0.15s; letter-spacing: -0.01em;
   }
   .price-btn:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
-  .price-card.hi .price-btn { border-color: rgba(59,78,240,0.5); color: var(--accent-l); }
+  .price-card.hi .price-btn { border-color: rgba(226,97,46,0.5); color: var(--accent-l); }
   .price-card.hi .price-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
  
   /* ── MARKET ── */
@@ -301,7 +309,7 @@
   .legal-col p, .legal-col a { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.9; display: block; }
   .legal-col a { transition: color 0.15s; }
   .legal-col a:hover { color: var(--white); }
-  .legal-brand { font-size: 16px; font-weight: 600; letter-spacing: -0.03em; color: var(--white); display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .legal-brand { font-size: 18px; font-weight: 600; letter-spacing: -0.04em; color: var(--white); margin-bottom: 14px; }
   .legal-bottom { max-width: 1120px; margin: 0 auto; padding: 20px 48px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
   .legal-bottom p { font-size: 12px; color: var(--muted); font-weight: 300; }
   @media (max-width: 860px) {
@@ -334,23 +342,9 @@
 </head>
 <body>
  
-<!-- SVG LOGO MARK (reusable) -->
-<svg style="display:none">
-  <symbol id="logo-mark-dark" viewBox="0 0 28 28">
-    <rect width="28" height="28" rx="7" fill="white"/>
-    <path d="M8 10L14 7L20 10V18L14 21L8 18V10Z" stroke="#0A0A0A" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
-    <line x1="14" y1="7" x2="14" y2="21" stroke="#0A0A0A" stroke-width="0.9" opacity="0.2"/>
-    <line x1="8" y1="10" x2="20" y2="18" stroke="#0A0A0A" stroke-width="0.9" opacity="0.2"/>
-    <line x1="20" y1="10" x2="8" y2="18" stroke="#0A0A0A" stroke-width="0.9" opacity="0.2"/>
-  </symbol>
-</svg>
- 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo">
-    <svg width="26" height="26"><use href="#logo-mark-dark"/></svg>
-    Konukla
-  </div>
+  <div class="nav-logo">Konukla<span class="brand-dot"></span></div>
   <div class="nav-links">
     <a href="#how" data-tr="Nasıl çalışır" data-en="How it works">Nasıl çalışır</a>
     <a href="#features" data-tr="Özellikler" data-en="Features">Özellikler</a>
@@ -366,10 +360,7 @@
  
 <!-- HERO -->
 <section class="hero">
-  <video class="hero-video" autoplay muted loop playsinline
-    poster="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80">
-    <source src="" type="video/mp4">
-  </video>
+  <div class="hero-video" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80')"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-label" id="hero-label">Restoran teknolojisi</div>
@@ -583,8 +574,8 @@
         <li><span class="tr-text">Analitik paneli</span><span class="en-text lang-hidden">Analytics dashboard</span></li>
         <li><span class="tr-text">E-posta desteği</span><span class="en-text lang-hidden">Email support</span></li>
       </ul>
-      <button class="price-btn tr-text">Başla</button>
-      <button class="price-btn en-text lang-hidden">Get started</button>
+      <a href="#contact" class="price-btn tr-text">Başla</a>
+      <a href="#contact" class="price-btn en-text lang-hidden">Get started</a>
     </div>
     <div class="price-card hi">
       <div class="price-tag tr-text">Kurucu restoran</div>
@@ -599,8 +590,8 @@
         <li><span class="tr-text">Kurucularla doğrudan iletişim</span><span class="en-text lang-hidden">Direct line to founders</span></li>
         <li><span class="tr-text">Ürün yol haritasını şekillendir</span><span class="en-text lang-hidden">Shape the product roadmap</span></li>
       </ul>
-      <button class="price-btn tr-text">Kurucu oranını al</button>
-      <button class="price-btn en-text lang-hidden">Claim founding rate</button>
+      <a href="#contact" class="price-btn tr-text">Kurucu oranını al</a>
+      <a href="#contact" class="price-btn en-text lang-hidden">Claim founding rate</a>
     </div>
   </div>
 </section>
@@ -684,10 +675,7 @@
   <div class="legal-inner">
     <div class="legal-cols">
       <div class="legal-col">
-        <div class="legal-brand">
-          <svg width="22" height="22"><use href="#logo-mark-dark"/></svg>
-          Konukla
-        </div>
+        <div class="legal-brand">Konukla<span class="brand-dot"></span></div>
         <!-- TODO: Replace with your registered legal entity details before iyzico submission -->
         <p>TODO: Yasal Şirket Unvanı</p>
         <p>TODO: Kayıtlı İş Adresi, İlçe/İl, Türkiye</p>
