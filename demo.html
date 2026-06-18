@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Sipariş — Konukla</title>
+<meta name="description" content="Konukla QR sipariş deneyimini canlı deneyin — menüye göz atın, sepete ekleyin, ödeme akışını görün.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0A0A0A; --bg-2:#111; --surface:#161616; --rule:rgba(255,255,255,0.08);
+    --white:#fff; --off:rgba(255,255,255,0.6); --muted:rgba(255,255,255,0.30);
+    --accent:#3B4EF0; --accent-l:#6473F5; --green:#28b463;
+    --font:'Sora',-apple-system,sans-serif;
+  }
+  body { background:var(--bg); color:var(--white); font-family:var(--font); line-height:1.6; -webkit-font-smoothing:antialiased; padding-bottom:96px; }
+  a { color:inherit; text-decoration:none; }
+  .lang-hidden { display:none !important; }
+
+  /* Top bar */
+  .topbar { position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:14px 20px; background:rgba(10,10,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--rule); }
+  .topbar .brand { font-size:16px; font-weight:600; letter-spacing:-0.03em; }
+  .topbar .right { display:flex; align-items:center; gap:14px; }
+  .topbar .home { font-size:13px; color:var(--off); }
+  .lang-switcher { display:flex; border:1px solid var(--rule); border-radius:5px; overflow:hidden; }
+  .lang-btn { padding:5px 10px; font-size:11px; font-weight:500; letter-spacing:.05em; cursor:pointer; color:var(--muted); background:transparent; border:none; font-family:var(--font); }
+  .lang-btn.active { background:rgba(255,255,255,0.08); color:var(--white); }
+
+  /* Demo banner */
+  .demo-banner { background:rgba(59,78,240,0.10); border-bottom:1px solid rgba(59,78,240,0.3); color:var(--accent-l); font-size:12.5px; text-align:center; padding:10px 16px; font-weight:400; }
+
+  /* Restaurant header */
+  .resto { max-width:760px; margin:0 auto; padding:28px 20px 8px; }
+  .resto h1 { font-size:26px; font-weight:600; letter-spacing:-0.03em; }
+  .resto .meta { font-size:13px; color:var(--muted); margin-top:6px; }
+
+  /* Menu */
+  .menu { max-width:760px; margin:0 auto; padding:8px 20px 40px; }
+  .cat { margin-top:28px; }
+  .cat h2 { font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--off); margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--rule); }
+  .item { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:14px 0; border-bottom:1px solid var(--rule); }
+  .item:last-child { border-bottom:none; }
+  .item-info { flex:1; min-width:0; }
+  .item-name { font-size:15px; font-weight:500; }
+  .item-desc { font-size:13px; color:var(--muted); font-weight:300; margin-top:3px; }
+  .item-price { font-size:14px; color:var(--off); margin-top:6px; }
+  .item-add { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+  .qty-btn { width:30px; height:30px; border-radius:50%; border:1px solid var(--rule); background:transparent; color:var(--white); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .15s; font-family:var(--font); }
+  .qty-btn:hover { border-color:var(--accent-l); color:var(--accent-l); }
+  .qty-btn.add { background:var(--accent); border-color:var(--accent); }
+  .qty-btn.add:hover { background:var(--accent-l); color:#fff; }
+  .qty-val { min-width:18px; text-align:center; font-size:14px; font-weight:500; }
+  .qty-zero .qty-val, .qty-zero .qty-minus { display:none; }
+
+  /* Cart bar */
+  .cartbar { position:fixed; bottom:0; left:0; right:0; z-index:60; background:var(--surface); border-top:1px solid var(--rule); padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; transform:translateY(120%); transition:transform .3s ease; }
+  .cartbar.show { transform:translateY(0); }
+  .cart-summary { font-size:14px; }
+  .cart-summary .count { color:var(--muted); font-size:12px; }
+  .cart-summary .total { font-size:18px; font-weight:600; }
+  .btn-pay { background:var(--white); color:var(--bg); border:none; border-radius:6px; padding:13px 26px; font-family:var(--font); font-size:14px; font-weight:600; cursor:pointer; transition:background .15s; }
+  .btn-pay:hover { background:rgba(255,255,255,.88); }
+
+  /* Overlay (checkout + success) */
+  .overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.7); backdrop-filter:blur(4px); display:none; align-items:flex-end; justify-content:center; }
+  .overlay.show { display:flex; }
+  .sheet { background:var(--bg-2); border:1px solid var(--rule); border-bottom:none; border-radius:16px 16px 0 0; width:100%; max-width:480px; padding:24px 22px 32px; max-height:90vh; overflow-y:auto; }
+  @media(min-width:520px){ .overlay{align-items:center;} .sheet{border-radius:16px; border-bottom:1px solid var(--rule);} }
+  .sheet h3 { font-size:18px; font-weight:600; margin-bottom:4px; }
+  .sheet .sub { font-size:13px; color:var(--muted); margin-bottom:18px; }
+  .line { display:flex; justify-content:space-between; font-size:14px; padding:8px 0; border-bottom:1px solid var(--rule); color:var(--off); }
+  .line .n { color:var(--white); }
+  .line-total { display:flex; justify-content:space-between; font-size:17px; font-weight:600; padding:14px 0 4px; }
+  .field { margin-top:14px; }
+  .field label { font-size:12px; color:var(--muted); display:block; margin-bottom:6px; }
+  .field input { width:100%; padding:12px 14px; border:1px solid var(--rule); border-radius:6px; background:rgba(255,255,255,.04); color:var(--white); font-family:var(--font); font-size:14px; outline:none; }
+  .field input:focus { border-color:rgba(255,255,255,.25); }
+  .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .pay-note { font-size:11.5px; color:var(--muted); margin-top:14px; text-align:center; }
+  .close-x { float:right; background:none; border:none; color:var(--muted); font-size:22px; cursor:pointer; line-height:1; }
+  .success-mark { width:64px; height:64px; border-radius:50%; background:rgba(40,180,99,.12); display:flex; align-items:center; justify-content:center; margin:6px auto 16px; }
+  .success-center { text-align:center; }
+  .order-no { font-size:13px; color:var(--muted); margin-top:6px; }
+  .btn-ghost-full { display:block; width:100%; margin-top:20px; padding:13px; border:1px solid var(--rule); border-radius:6px; background:transparent; color:var(--off); font-family:var(--font); font-size:14px; cursor:pointer; }
+  .btn-ghost-full:hover { color:var(--white); border-color:rgba(255,255,255,.3); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="/" class="brand">Konukla</a>
+  <div class="right">
+    <a href="/" class="home"><span class="tr-text">← Ana sayfa</span><span class="en-text lang-hidden">← Home</span></a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</div>
+
+<div class="demo-banner">
+  <span class="tr-text">Bu bir interaktif demodur — gerçek ödeme alınmaz. Konukla'nın masadan sipariş deneyimini deneyin.</span>
+  <span class="en-text lang-hidden">This is an interactive demo — no real payment is charged. Try Konukla's at-table ordering experience.</span>
+</div>
+
+<div class="resto">
+  <h1>Lezzet Durağı</h1>
+  <div class="meta">
+    <span class="tr-text">Kadıköy · Masa 1 · QR ile sipariş</span>
+    <span class="en-text lang-hidden">Kadıköy · Table 1 · Order via QR</span>
+  </div>
+</div>
+
+<div class="menu" id="menu"></div>
+
+<!-- Cart bar -->
+<div class="cartbar" id="cartbar">
+  <div class="cart-summary">
+    <div class="count"><span id="cart-count">0</span> <span class="tr-text">ürün</span><span class="en-text lang-hidden">items</span></div>
+    <div class="total">₺<span id="cart-total">0,00</span></div>
+  </div>
+  <button class="btn-pay" onclick="openCheckout()">
+    <span class="tr-text">Sipariş Ver & Öde</span><span class="en-text lang-hidden">Order & Pay</span>
+  </button>
+</div>
+
+<!-- Checkout overlay -->
+<div class="overlay" id="checkout-overlay">
+  <div class="sheet">
+    <button class="close-x" onclick="closeCheckout()">×</button>
+    <h3><span class="tr-text">Sipariş Özeti</span><span class="en-text lang-hidden">Order Summary</span></h3>
+    <div class="sub"><span class="tr-text">Lezzet Durağı · Masa 1</span><span class="en-text lang-hidden">Lezzet Durağı · Table 1</span></div>
+    <div id="checkout-lines"></div>
+    <div class="line-total">
+      <span class="tr-text">Toplam</span><span class="en-text lang-hidden">Total</span>
+      <span>₺<span id="checkout-total">0,00</span></span>
+    </div>
+
+    <div class="field">
+      <label><span class="tr-text">Kart Numarası</span><span class="en-text lang-hidden">Card Number</span></label>
+      <input type="text" inputmode="numeric" placeholder="5528 7900 0000 0008" maxlength="19" id="card-no">
+    </div>
+    <div class="row2">
+      <div class="field"><label><span class="tr-text">Son Kullanma</span><span class="en-text lang-hidden">Expiry</span></label><input type="text" placeholder="12/30" maxlength="5"></div>
+      <div class="field"><label>CVC</label><input type="text" inputmode="numeric" placeholder="123" maxlength="4"></div>
+    </div>
+
+    <button class="btn-pay" style="width:100%;margin-top:18px" onclick="completePayment()">
+      <span class="tr-text">Ödemeyi Tamamla</span><span class="en-text lang-hidden">Complete Payment</span>
+    </button>
+    <p class="pay-note">
+      <span class="tr-text">🔒 Gerçek üretimde ödemeler iyzico ile güvenle alınır. Bu demoda kart bilgisi işlenmez.</span>
+      <span class="en-text lang-hidden">🔒 In production, payments are secured by iyzico. No card data is processed in this demo.</span>
+    </p>
+  </div>
+</div>
+
+<!-- Success overlay -->
+<div class="overlay" id="success-overlay">
+  <div class="sheet success-center">
+    <div class="success-mark">
+      <svg width="30" height="30" viewBox="0 0 20 20" fill="#28b463"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+    </div>
+    <h3><span class="tr-text">Siparişiniz alındı!</span><span class="en-text lang-hidden">Order received!</span></h3>
+    <p class="sub" style="margin-bottom:4px"><span class="tr-text">Sipariş mutfağa iletildi. Afiyet olsun.</span><span class="en-text lang-hidden">Your order has been sent to the kitchen. Enjoy!</span></p>
+    <p class="order-no"><span class="tr-text">Sipariş No</span><span class="en-text lang-hidden">Order No</span>: #<span id="order-no"></span></p>
+    <button class="btn-ghost-full" onclick="resetDemo()">
+      <span class="tr-text">Demoyu yeniden başlat</span><span class="en-text lang-hidden">Restart demo</span>
+    </button>
+    <a href="/" class="btn-ghost-full" style="text-decoration:none;text-align:center">
+      <span class="tr-text">Ana sayfaya dön</span><span class="en-text lang-hidden">Back to home</span>
+    </a>
+  </div>
+</div>
+
+<script>
+  const MENU = [
+    { id:1, cat:'Başlangıçlar', catEn:'Starters', tr:'Mercimek Çorbası', en:'Lentil Soup', dTr:'Geleneksel kırmızı mercimek çorbası', dEn:'Traditional red lentil soup', price:65 },
+    { id:2, cat:'Başlangıçlar', catEn:'Starters', tr:'Humus Tabağı', en:'Hummus Plate', dTr:'Nohut ezmesi, tahin ve taze pita', dEn:'Chickpea purée, tahini and fresh pita', price:95 },
+    { id:3, cat:'Başlangıçlar', catEn:'Starters', tr:'Sigara Böreği (6 adet)', en:'Cheese Rolls (6 pcs)', dTr:'Çıtır yufka içinde beyaz peynir', dEn:'Crispy pastry with white cheese', price:85 },
+    { id:4, cat:'Ana Yemekler', catEn:'Mains', tr:'Izgara Köfte', en:'Grilled Meatballs', dTr:'El yapımı dana köfte, pilav ile', dEn:'Handmade beef meatballs with rice', price:220 },
+    { id:5, cat:'Ana Yemekler', catEn:'Mains', tr:'Tavuk Şiş', en:'Chicken Skewer', dTr:'Marine tavuk, bulgur pilavı ve salata', dEn:'Marinated chicken, bulgur and salad', price:195 },
+    { id:6, cat:'Ana Yemekler', catEn:'Mains', tr:'Adana Kebap', en:'Adana Kebab', dTr:'Acılı el kıyması kebap, lavaş ile', dEn:'Spicy hand-minced kebab with lavash', price:260 },
+    { id:7, cat:'Ana Yemekler', catEn:'Mains', tr:'Mantı', en:'Turkish Dumplings', dTr:'El açması mantı, yoğurt ve tereyağı', dEn:'Handmade dumplings, yogurt and butter', price:180 },
+    { id:8, cat:'Tatlılar', catEn:'Desserts', tr:'Künefe', en:'Künefe', dTr:'Tel kadayıf, peynir ve şerbet', dEn:'Shredded pastry, cheese and syrup', price:130 },
+    { id:9, cat:'Tatlılar', catEn:'Desserts', tr:'Sütlaç', en:'Rice Pudding', dTr:'Fırınlanmış geleneksel sütlaç', dEn:'Oven-baked traditional rice pudding', price:90 },
+    { id:10, cat:'İçecekler', catEn:'Drinks', tr:'Ayran', en:'Ayran', dTr:'Ev yapımı taze ayran', dEn:'Homemade fresh ayran', price:35 },
+    { id:11, cat:'İçecekler', catEn:'Drinks', tr:'Türk Kahvesi', en:'Turkish Coffee', dTr:'Közde pişmiş double Türk kahvesi', dEn:'Double Turkish coffee', price:55 },
+    { id:12, cat:'İçecekler', catEn:'Drinks', tr:'Şalgam Suyu', en:'Şalgam Juice', dTr:'Acılı / acısız', dEn:'Spicy / mild', price:40 },
+  ];
+
+  let lang = 'tr';
+  const cart = {}; // id -> qty
+
+  const fmt = (n) => n.toFixed(2).replace('.', ',');
+
+  function renderMenu() {
+    const cats = [...new Set(MENU.map(m => m.cat))];
+    const el = document.getElementById('menu');
+    el.innerHTML = cats.map(cat => {
+      const items = MENU.filter(m => m.cat === cat);
+      const catEn = items[0].catEn;
+      return `<div class="cat">
+        <h2><span class="tr-text">${cat}</span><span class="en-text lang-hidden">${catEn}</span></h2>
+        ${items.map(m => `
+          <div class="item">
+            <div class="item-info">
+              <div class="item-name"><span class="tr-text">${m.tr}</span><span class="en-text lang-hidden">${m.en}</span></div>
+              <div class="item-desc"><span class="tr-text">${m.dTr}</span><span class="en-text lang-hidden">${m.dEn}</span></div>
+              <div class="item-price">₺${fmt(m.price)}</div>
+            </div>
+            <div class="item-add qty-zero" id="add-${m.id}">
+              <button class="qty-btn qty-minus" onclick="changeQty(${m.id},-1)">−</button>
+              <span class="qty-val">0</span>
+              <button class="qty-btn add" onclick="changeQty(${m.id},1)">+</button>
+            </div>
+          </div>`).join('')}
+      </div>`;
+    }).join('');
+    applyLang();
+  }
+
+  function changeQty(id, delta) {
+    cart[id] = Math.max(0, (cart[id] || 0) + delta);
+    if (cart[id] === 0) delete cart[id];
+    const wrap = document.getElementById('add-' + id);
+    const qty = cart[id] || 0;
+    wrap.querySelector('.qty-val').textContent = qty;
+    wrap.classList.toggle('qty-zero', qty === 0);
+    renderCart();
+  }
+
+  function cartItems() { return Object.keys(cart).map(id => ({ m: MENU.find(x => x.id == id), qty: cart[id] })); }
+  function cartTotal() { return cartItems().reduce((s, x) => s + x.m.price * x.qty, 0); }
+  function cartCount() { return cartItems().reduce((s, x) => s + x.qty, 0); }
+
+  function renderCart() {
+    const count = cartCount();
+    document.getElementById('cart-count').textContent = count;
+    document.getElementById('cart-total').textContent = fmt(cartTotal());
+    document.getElementById('cartbar').classList.toggle('show', count > 0);
+  }
+
+  function openCheckout() {
+    const lines = cartItems().map(x => `<div class="line"><span class="n">${x.qty}× <span class="tr-text">${x.m.tr}</span><span class="en-text lang-hidden">${x.m.en}</span></span><span>₺${fmt(x.m.price * x.qty)}</span></div>`).join('');
+    document.getElementById('checkout-lines').innerHTML = lines;
+    document.getElementById('checkout-total').textContent = fmt(cartTotal());
+    document.getElementById('checkout-overlay').classList.add('show');
+    applyLang();
+  }
+  function closeCheckout() { document.getElementById('checkout-overlay').classList.remove('show'); }
+
+  function completePayment() {
+    closeCheckout();
+    document.getElementById('order-no').textContent = Math.floor(100000 + Math.random() * 900000);
+    document.getElementById('success-overlay').classList.add('show');
+  }
+
+  function resetDemo() {
+    Object.keys(cart).forEach(k => delete cart[k]);
+    document.getElementById('success-overlay').classList.remove('show');
+    renderMenu();
+    renderCart();
+  }
+
+  function setLang(l) {
+    lang = l; document.documentElement.lang = l;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === l));
+    applyLang();
+  }
+  function applyLang() {
+    document.querySelectorAll('.tr-text').forEach(e => e.classList.toggle('lang-hidden', lang === 'en'));
+    document.querySelectorAll('.en-text').forEach(e => e.classList.toggle('lang-hidden', lang === 'tr'));
+  }
+
+  renderMenu();
+  renderCart();
+</script>
+</body>
+</html>
