@@ -299,6 +299,33 @@
   .legal-bottom { max-width: 1160px; margin: 0 auto; padding: 22px 32px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
   .legal-bottom p { font-size: 12.5px; color: var(--muted); font-weight: 300; }
 
+  /* ── TIMELINE ── */
+  .timeline { display: flex; align-items: flex-start; justify-content: center; flex-wrap: wrap; gap: 0; }
+  .tl-node { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 10px; }
+  .tl-ic { width: 58px; height: 58px; border-radius: 16px; background: #fff; border: 1px solid var(--rule); box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: center; font-size: 26px; }
+  .tl-t { font-size: 14.5px; font-weight: 500; margin-top: 12px; }
+  .tl-time { font-size: 12.5px; color: var(--accent-d); font-weight: 600; margin-top: 3px; }
+  .tl-line { flex: 1; min-width: 36px; max-width: 140px; height: 2px; border-radius: 2px; margin-top: 28px; background: linear-gradient(90deg, var(--rule), var(--accent-l), var(--rule)); background-size: 200% 100%; }
+  @media (prefers-reduced-motion: no-preference) { .tl-line { animation: flow 2.4s linear infinite; } }
+  @keyframes flow { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+  @media (max-width: 640px) {
+    .timeline { flex-direction: column; align-items: center; gap: 0; }
+    .tl-line { width: 2px; height: 30px; min-width: 0; margin: 6px 0; background: linear-gradient(180deg, var(--rule), var(--accent-l), var(--rule)); background-size: 100% 200%; }
+    @media (prefers-reduced-motion: no-preference) { .tl-line { animation: flowv 2.4s linear infinite; } }
+  }
+  @keyframes flowv { from { background-position: 0 200%; } to { background-position: 0 -200%; } }
+
+  /* ── MOCKUP MOTION ── */
+  .mi-add.flash { animation: addflash 0.55s ease; }
+  @keyframes addflash { 0%{transform:scale(1);background:var(--accent);} 40%{transform:scale(1.28);background:var(--ok);} 100%{transform:scale(1);background:var(--accent);} }
+  .menu-item.adding { background: var(--wash); }
+  .app-cart .ct-sum, .app-cart .ct-n { display: inline-block; transition: color 0.2s; }
+  .cart-bump { animation: bump 0.42s ease; }
+  @keyframes bump { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
+  .badge { transition: background 0.45s, color 0.45s; }
+  .order-card.slide-in { animation: slidein 0.6s cubic-bezier(.2,.7,.3,1); }
+  @keyframes slidein { from { opacity: 0; transform: translateY(-14px) scale(0.96); } to { opacity: 1; transform: none; } }
+
   /* ── REVEAL ── */
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -388,7 +415,7 @@
     <div class="hero-media reveal">
       <div class="glow"></div>
       <div class="phone">
-        <div class="phone-screen">
+        <div class="phone-screen" id="hero-phone">
           <div class="phone-notch"></div>
           <div class="app-top"><div class="app-rest">Lezzet Durağı <span>· Masa 4</span></div></div>
           <div class="app-cats">
@@ -414,6 +441,34 @@
     <span class="trust-logo">Koç</span>
   </div>
 </div>
+
+<!-- SPEED TIMELINE -->
+<section class="band tight">
+  <div class="wrap">
+    <div class="sec-head center reveal" style="margin-bottom:40px">
+      <h2 class="sec-title"><span class="tr-text">Saniyeler içinde masadan mutfağa.</span><span class="en-text lang-hidden">From table to kitchen in seconds.</span></h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-node">
+        <div class="tl-ic">📲</div>
+        <div class="tl-t"><span class="tr-text">QR okut</span><span class="en-text lang-hidden">Scan QR</span></div>
+        <div class="tl-time">0 sn</div>
+      </div>
+      <div class="tl-line"></div>
+      <div class="tl-node">
+        <div class="tl-ic">💳</div>
+        <div class="tl-t"><span class="tr-text">Sipariş & öde</span><span class="en-text lang-hidden">Order & pay</span></div>
+        <div class="tl-time"><span class="tr-text">~30 sn</span><span class="en-text lang-hidden">~30 sec</span></div>
+      </div>
+      <div class="tl-line"></div>
+      <div class="tl-node">
+        <div class="tl-ic">🔔</div>
+        <div class="tl-t"><span class="tr-text">Mutfakta</span><span class="en-text lang-hidden">In the kitchen</span></div>
+        <div class="tl-time"><span class="tr-text">anında</span><span class="en-text lang-hidden">instantly</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- HOW IT WORKS -->
 <section class="band cream" id="how">
@@ -531,7 +586,7 @@
         <div class="browser">
           <div class="browser-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="browser-url">mutfak.konukla.com</span></div>
           <div class="kds">
-            <div class="order-card"><div class="oc-top"><span class="oc-table">Masa 4</span><span class="badge paid">ÖDENDİ</span></div><div class="oc-items">2× Adana Kebap<br>1× Ayran</div><div class="oc-time">az önce</div></div>
+            <div class="order-card" id="kds-live"><div class="oc-top"><span class="oc-table">Masa 4</span><span class="badge paid">ÖDENDİ</span></div><div class="oc-items">2× Adana Kebap<br>1× Ayran</div><div class="oc-time">az önce</div></div>
             <div class="order-card"><div class="oc-top"><span class="oc-table">Masa 9</span><span class="badge prep">HAZIRLANIYOR</span></div><div class="oc-items">1× İskender<br>2× Çoban Salata</div><div class="oc-time">3 dk önce</div></div>
             <div class="order-card"><div class="oc-top"><span class="oc-table">Masa 2</span><span class="badge ready">HAZIR</span></div><div class="oc-items">1× Künefe<br>2× Türk Kahvesi</div><div class="oc-time">6 dk önce</div></div>
             <div class="order-card"><div class="oc-top"><span class="oc-table">Masa 7</span><span class="badge prep">HAZIRLANIYOR</span></div><div class="oc-items">3× Lahmacun</div><div class="oc-time">8 dk önce</div></div>
@@ -808,6 +863,59 @@
         : '<span style="color:#ffb4a0">Could not send. Please try again or email destek@konukla.com.</span>';
     }
   }
+
+  // ── Mockup motion (respects reduced-motion) ──
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Hero phone: simulate a customer adding items to the cart
+  (function () {
+    const root = document.getElementById('hero-phone');
+    if (!root || reduceMotion) return;
+    const items = root.querySelectorAll('.menu-item');
+    const ctN = root.querySelector('.ct-n');
+    const ctSum = root.querySelector('.ct-sum');
+    if (!items.length || !ctN || !ctSum) return;
+    const prices = [220, 80, 140];
+    const base = { count: 2, sum: 300 };
+    let count = base.count, sum = base.sum, i = 0, added = 0;
+    function tick() {
+      const item = items[i % items.length];
+      const add = item.querySelector('.mi-add');
+      item.classList.add('adding'); if (add) add.classList.add('flash');
+      count += 1; sum += prices[i % prices.length]; added += 1; i += 1;
+      setTimeout(() => {
+        ctN.textContent = count; ctSum.textContent = '₺' + sum;
+        ctN.classList.add('cart-bump'); ctSum.classList.add('cart-bump');
+        setTimeout(() => { ctN.classList.remove('cart-bump'); ctSum.classList.remove('cart-bump'); }, 420);
+      }, 270);
+      setTimeout(() => { item.classList.remove('adding'); if (add) add.classList.remove('flash'); }, 660);
+      if (added >= 3) {
+        added = 0;
+        setTimeout(() => { count = base.count; sum = base.sum; ctN.textContent = count; ctSum.textContent = '₺' + sum; }, 1600);
+      }
+    }
+    setInterval(tick, 2400);
+  })();
+
+  // Kitchen board: live order cycles ÖDENDİ → HAZIRLANIYOR → HAZIR, then a "new" order slides in
+  (function () {
+    const card = document.getElementById('kds-live');
+    if (!card || reduceMotion) return;
+    const badge = card.querySelector('.badge');
+    if (!badge) return;
+    const states = [
+      { cls: 'paid', t: 'ÖDENDİ' },
+      { cls: 'prep', t: 'HAZIRLANIYOR' },
+      { cls: 'ready', t: 'HAZIR' }
+    ];
+    let s = 0;
+    setInterval(() => {
+      s = (s + 1) % states.length;
+      if (s === 0) { card.classList.remove('slide-in'); void card.offsetWidth; card.classList.add('slide-in'); }
+      badge.className = 'badge ' + states[s].cls;
+      badge.textContent = states[s].t;
+    }, 2600);
+  })();
 </script>
 </body>
 </html>
