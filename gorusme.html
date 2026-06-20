@@ -18,11 +18,18 @@
     --font:'Sora',-apple-system,sans-serif;
   }
   html { scroll-behavior:smooth; }
-  body { background:var(--cream); color:var(--ink); font-family:var(--font); line-height:1.6; -webkit-font-smoothing:antialiased; }
+  body {
+    color:var(--ink); font-family:var(--font); line-height:1.6; -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    background:
+      radial-gradient(60% 80% at 88% 0%, rgba(240,163,94,0.16), transparent 60%),
+      radial-gradient(50% 60% at 0% 100%, rgba(226,89,43,0.06), transparent 55%),
+      var(--cream);
+  }
   a { color:inherit; text-decoration:none; }
   .lang-hidden { display:none !important; }
 
-  nav { height:64px; display:flex; align-items:center; padding:0 32px; background:rgba(255,255,255,0.85); backdrop-filter:blur(14px); border-bottom:1px solid var(--rule); position:sticky; top:0; z-index:50; }
+  nav { height:64px; display:flex; align-items:center; padding:0 32px; background:rgba(251,247,241,0.78); backdrop-filter:blur(14px); border-bottom:1px solid var(--rule); position:sticky; top:0; z-index:50; }
   .nav-logo { margin-right:auto; display:flex; align-items:center; }
   .nav-logo img { height:30px; width:auto; display:block; }
   .nav-right { display:flex; align-items:center; gap:18px; }
@@ -32,19 +39,39 @@
   .lang-btn { padding:6px 11px; font-size:11px; font-weight:600; letter-spacing:.04em; cursor:pointer; color:var(--muted); background:transparent; border:none; font-family:var(--font); }
   .lang-btn.active { background:var(--ink); color:#fff; }
 
-  .wrap { max-width:980px; margin:0 auto; padding:0 24px; }
-  .head { text-align:center; padding:56px 0 32px; }
-  .kicker { font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-d); margin-bottom:14px; }
-  h1 { font-size:clamp(30px,4.5vw,46px); font-weight:600; letter-spacing:-0.03em; line-height:1.08; margin-bottom:16px; }
-  .sub { font-size:17px; font-weight:300; color:var(--ink-soft); line-height:1.6; max-width:600px; margin:0 auto; }
-  .meta-row { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin-top:22px; font-size:13.5px; color:var(--ink-soft); }
-  .meta-row span { display:inline-flex; align-items:center; gap:7px; }
+  .layout { max-width:1140px; margin:0 auto; padding:56px 32px 64px; display:grid; grid-template-columns:0.92fr 1.08fr; gap:56px; align-items:start; }
 
-  .cal-card { background:#fff; border:1px solid var(--rule); border-radius:18px; overflow:hidden; box-shadow:0 24px 60px -28px rgba(35,26,24,0.30); margin:8px 0 24px; }
-  .cal-card iframe { display:block; width:100%; height:720px; border:0; }
-  .fallback { text-align:center; padding:0 0 56px; font-size:14px; color:var(--muted); }
+  /* LEFT panel */
+  .panel { position:relative; padding-top:6px; }
+  .kicker { display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:600; letter-spacing:.05em; color:var(--accent-d); background:rgba(226,89,43,0.08); padding:6px 13px; border-radius:100px; margin-bottom:22px; }
+  .panel h1 { font-size:clamp(30px,4vw,48px); font-weight:600; letter-spacing:-0.035em; line-height:1.04; margin-bottom:18px; }
+  .panel h1 em { font-style:normal; color:var(--accent); }
+  .panel .sub { font-size:17px; font-weight:300; color:var(--ink-soft); line-height:1.6; max-width:440px; margin-bottom:30px; }
+
+  .agenda { list-style:none; display:flex; flex-direction:column; gap:14px; margin-bottom:30px; }
+  .agenda li { display:flex; align-items:flex-start; gap:12px; font-size:15px; }
+  .agenda .ic { width:30px; height:30px; border-radius:9px; background:#fff; border:1px solid var(--rule); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; box-shadow:0 4px 14px -8px rgba(35,26,24,0.25); }
+  .agenda .t { font-weight:500; }
+  .agenda .d { color:var(--ink-soft); font-weight:300; font-size:13.5px; }
+
+  .meta-card { display:flex; gap:10px; flex-wrap:wrap; }
+  .chip { display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:500; color:var(--ink); background:#fff; border:1px solid var(--rule); border-radius:100px; padding:8px 14px; }
+  .host { display:flex; align-items:center; gap:12px; margin-top:30px; padding-top:24px; border-top:1px solid var(--rule); }
+  .host .sun { width:42px; height:42px; border-radius:50%; background:radial-gradient(circle at 35% 32%,#F4B978,#E2592B 80%); box-shadow:0 0 22px rgba(240,163,94,0.5); flex-shrink:0; }
+  .host .who { font-size:13.5px; color:var(--ink-soft); font-weight:300; }
+  .host .who b { color:var(--ink); font-weight:600; }
+
+  /* RIGHT calendar */
+  .cal-card { background:#fff; border:1px solid var(--rule); border-radius:20px; overflow:hidden; box-shadow:0 30px 70px -32px rgba(35,26,24,0.35); }
+  .cal-card iframe { display:block; width:100%; height:740px; border:0; }
+  .fallback { margin-top:14px; text-align:center; font-size:13px; color:var(--muted); }
   .fallback a { color:var(--accent-d); text-decoration:underline; }
-  @media (max-width:640px){ .cal-card iframe { height:640px; } .head { padding:40px 0 24px; } }
+
+  @media (max-width:920px){
+    .layout { grid-template-columns:1fr; gap:36px; padding:40px 22px 48px; }
+    .panel .sub { max-width:none; }
+    .cal-card iframe { height:660px; }
+  }
 </style>
 </head>
 <body>
@@ -60,30 +87,60 @@
   </div>
 </nav>
 
-<div class="wrap">
-  <div class="head">
-    <div class="kicker"><span class="tr-text">Satış görüşmesi</span><span class="en-text lang-hidden">Sales meeting</span></div>
-    <h1><span class="tr-text">Satış ekibiyle görüşün</span><span class="en-text lang-hidden">Talk to our sales team</span></h1>
+<div class="layout">
+  <!-- LEFT -->
+  <div class="panel">
+    <div class="kicker"><span class="tr-text">Satış görüşmesi · 30 dakika</span><span class="en-text lang-hidden">Sales call · 30 minutes</span></div>
+    <h1>
+      <span class="tr-text">Restoranınız için <em>canlı bir demo</em> planlayın.</span>
+      <span class="en-text lang-hidden">Book a <em>live demo</em> for your restaurant.</span>
+    </h1>
     <p class="sub">
-      <span class="tr-text">Konukla'nın QR sipariş ve ödeme altyapısının restoranınızda nasıl çalışacağını, kurulumu ve fiyatlandırmayı konuşmak için 30 dakikalık bir görüşme planlayın.</span>
-      <span class="en-text lang-hidden">Book a 30-minute call to see how Konukla's QR ordering & payment infrastructure works for your restaurant — setup, features, and pricing.</span>
+      <span class="tr-text">Konukla'nın masadan QR sipariş ve ödeme altyapısının işletmenizde nasıl çalışacağını birlikte görelim. Size uygun bir saat seçin, gerisini biz halledelim.</span>
+      <span class="en-text lang-hidden">Let's walk through how Konukla's QR ordering & payment infrastructure works for your venue. Pick a time that suits you — we'll take care of the rest.</span>
     </p>
-    <div class="meta-row">
-      <span>🕒 <span class="tr-text">30 dakika</span><span class="en-text lang-hidden">30 minutes</span></span>
-      <span>🎥 <span class="tr-text">Google Meet üzerinden</span><span class="en-text lang-hidden">Over Google Meet</span></span>
-      <span>🇹🇷 <span class="tr-text">Türkçe</span><span class="en-text lang-hidden">Turkish</span></span>
+
+    <ul class="agenda">
+      <li>
+        <span class="ic">📲</span>
+        <span><span class="t tr-text">Canlı ürün turu</span><span class="t en-text lang-hidden">Live product tour</span><br>
+        <span class="d tr-text">QR menü, ödeme ve mutfak ekranını gerçek akışıyla gösteririz.</span><span class="d en-text lang-hidden">We show the QR menu, payment, and kitchen display in a real flow.</span></span>
+      </li>
+      <li>
+        <span class="ic">⚙️</span>
+        <span><span class="t tr-text">Kurulum & entegrasyon</span><span class="t en-text lang-hidden">Setup & integration</span><br>
+        <span class="d tr-text">Menünüz, masalarınız ve varsa POS entegrasyonunuz nasıl bağlanır.</span><span class="d en-text lang-hidden">How your menu, tables, and any POS integration get connected.</span></span>
+      </li>
+      <li>
+        <span class="ic">💬</span>
+        <span><span class="t tr-text">Fiyatlandırma & sorularınız</span><span class="t en-text lang-hidden">Pricing & your questions</span><br>
+        <span class="d tr-text">İşletmenize özel koşulları konuşur, tüm sorularınızı yanıtlarız.</span><span class="d en-text lang-hidden">We discuss terms for your venue and answer everything.</span></span>
+      </li>
+    </ul>
+
+    <div class="meta-card">
+      <span class="chip">🕒 <span class="tr-text">30 dakika</span><span class="en-text lang-hidden">30 minutes</span></span>
+      <span class="chip">🎥 Google Meet</span>
+      <span class="chip">🇹🇷 <span class="tr-text">Türkçe</span><span class="en-text lang-hidden">Turkish</span></span>
+    </div>
+
+    <div class="host">
+      <span class="sun"></span>
+      <span class="who"><span class="tr-text">Görüşmeyi <b>Konukla kurucu ekibinden</b> biri yürütür.</span><span class="en-text lang-hidden">Your call is hosted by a <b>Konukla founder</b>.</span></span>
     </div>
   </div>
 
-  <!-- Google Calendar Appointment Scheduling -->
-  <div class="cal-card">
-    <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ22hwewrKSzvX82SVqQ2ZcaSnfCQ3V5bac6n3RUSoXFi4rOdmSokhIf_yf2-Y8bFIj482UlkoBi?gv=true" title="Konukla — Satış Görüşmesi randevu takvimi"></iframe>
+  <!-- RIGHT: calendar -->
+  <div>
+    <!-- Google Calendar Appointment Scheduling -->
+    <div class="cal-card">
+      <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ22hwewrKSzvX82SVqQ2ZcaSnfCQ3V5bac6n3RUSoXFi4rOdmSokhIf_yf2-Y8bFIj482UlkoBi?gv=true" title="Konukla — Satış Görüşmesi randevu takvimi"></iframe>
+    </div>
+    <p class="fallback">
+      <span class="tr-text">Takvim yüklenmiyor mu? <a href="https://calendar.app.google/seLewHWSHZ8SKPvc6" target="_blank" rel="noopener">Rezervasyon sayfasını yeni sekmede açın →</a></span>
+      <span class="en-text lang-hidden">Calendar not loading? <a href="https://calendar.app.google/seLewHWSHZ8SKPvc6" target="_blank" rel="noopener">Open the booking page in a new tab →</a></span>
+    </p>
   </div>
-
-  <p class="fallback">
-    <span class="tr-text">Takvim yüklenmiyor mu? <a href="https://calendar.app.google/seLewHWSHZ8SKPvc6" target="_blank" rel="noopener">Rezervasyon sayfasını yeni sekmede açın →</a></span>
-    <span class="en-text lang-hidden">Calendar not loading? <a href="https://calendar.app.google/seLewHWSHZ8SKPvc6" target="_blank" rel="noopener">Open the booking page in a new tab →</a></span>
-  </p>
 </div>
 
 <script>
