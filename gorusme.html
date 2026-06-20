@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satış Görüşmesi — Konukla</title>
+<meta name="description" content="Konukla satış ekibiyle 30 dakikalık görüşme planlayın. QR sipariş ve ödeme altyapısının restoranınızda nasıl çalışacağını birlikte konuşalım.">
+<link rel="canonical" href="https://konukla.com/gorusme.html">
+<link rel="icon" type="image/svg+xml" href="/assets/konukla-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#FFFFFF; --cream:#FBF7F1; --cream-2:#F4ECE2; --ink:#231A18;
+    --ink-soft:rgba(35,26,24,0.64); --muted:rgba(35,26,24,0.42);
+    --rule:rgba(35,26,24,0.10); --accent:#E2592B; --accent-d:#C8491F; --accent-l:#F0A35E;
+    --font:'Sora',-apple-system,sans-serif;
+  }
+  html { scroll-behavior:smooth; }
+  body { background:var(--cream); color:var(--ink); font-family:var(--font); line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; text-decoration:none; }
+  .lang-hidden { display:none !important; }
+
+  nav { height:64px; display:flex; align-items:center; padding:0 32px; background:rgba(255,255,255,0.85); backdrop-filter:blur(14px); border-bottom:1px solid var(--rule); position:sticky; top:0; z-index:50; }
+  .nav-logo { margin-right:auto; display:flex; align-items:center; }
+  .nav-logo img { height:30px; width:auto; display:block; }
+  .nav-right { display:flex; align-items:center; gap:18px; }
+  .nav-home { font-size:13.5px; color:var(--ink-soft); }
+  .nav-home:hover { color:var(--accent-d); }
+  .lang-switcher { display:flex; border:1px solid var(--rule); border-radius:7px; overflow:hidden; }
+  .lang-btn { padding:6px 11px; font-size:11px; font-weight:600; letter-spacing:.04em; cursor:pointer; color:var(--muted); background:transparent; border:none; font-family:var(--font); }
+  .lang-btn.active { background:var(--ink); color:#fff; }
+
+  .wrap { max-width:980px; margin:0 auto; padding:0 24px; }
+  .head { text-align:center; padding:56px 0 32px; }
+  .kicker { font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-d); margin-bottom:14px; }
+  h1 { font-size:clamp(30px,4.5vw,46px); font-weight:600; letter-spacing:-0.03em; line-height:1.08; margin-bottom:16px; }
+  .sub { font-size:17px; font-weight:300; color:var(--ink-soft); line-height:1.6; max-width:600px; margin:0 auto; }
+  .meta-row { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin-top:22px; font-size:13.5px; color:var(--ink-soft); }
+  .meta-row span { display:inline-flex; align-items:center; gap:7px; }
+
+  .cal-card { background:#fff; border:1px solid var(--rule); border-radius:18px; overflow:hidden; box-shadow:0 24px 60px -28px rgba(35,26,24,0.30); margin:8px 0 24px; }
+  .cal-card iframe { display:block; width:100%; height:720px; border:0; }
+  .fallback { text-align:center; padding:0 0 56px; font-size:14px; color:var(--muted); }
+  .fallback a { color:var(--accent-d); text-decoration:underline; }
+  @media (max-width:640px){ .cal-card iframe { height:640px; } .head { padding:40px 0 24px; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo" aria-label="Konukla"><img src="/assets/konukla-logo.png" alt="Konukla"></a>
+  <div class="nav-right">
+    <a href="/" class="nav-home"><span class="tr-text">← Ana sayfa</span><span class="en-text lang-hidden">← Home</span></a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('tr')" aria-label="Türkçe">TR</button>
+      <button class="lang-btn" onclick="setLang('en')" aria-label="English">EN</button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="head">
+    <div class="kicker"><span class="tr-text">Satış görüşmesi</span><span class="en-text lang-hidden">Sales meeting</span></div>
+    <h1><span class="tr-text">Satış ekibiyle görüşün</span><span class="en-text lang-hidden">Talk to our sales team</span></h1>
+    <p class="sub">
+      <span class="tr-text">Konukla'nın QR sipariş ve ödeme altyapısının restoranınızda nasıl çalışacağını, kurulumu ve fiyatlandırmayı konuşmak için 30 dakikalık bir görüşme planlayın.</span>
+      <span class="en-text lang-hidden">Book a 30-minute call to see how Konukla's QR ordering & payment infrastructure works for your restaurant — setup, features, and pricing.</span>
+    </p>
+    <div class="meta-row">
+      <span>🕒 <span class="tr-text">30 dakika</span><span class="en-text lang-hidden">30 minutes</span></span>
+      <span>🎥 <span class="tr-text">Google Meet üzerinden</span><span class="en-text lang-hidden">Over Google Meet</span></span>
+      <span>🇹🇷 <span class="tr-text">Türkçe</span><span class="en-text lang-hidden">Turkish</span></span>
+    </div>
+  </div>
+
+  <!-- Google Calendar Appointment Scheduling -->
+  <div class="cal-card">
+    <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ22hwewrKSzvX82SVqQ2ZcaSnfCQ3V5bac6n3RUSoXFi4rOdmSokhIf_yf2-Y8bFIj482UlkoBi?gv=true" title="Konukla — Satış Görüşmesi randevu takvimi"></iframe>
+  </div>
+
+  <p class="fallback">
+    <span class="tr-text">Takvim yüklenmiyor mu? <a href="https://calendar.app.google/seLewHWSHZ8SKPvc6" target="_blank" rel="noopener">Rezervasyon sayfasını yeni sekmede açın →</a></span>
+    <span class="en-text lang-hidden">Calendar not loading? <a href="https://calendar.app.google/seLewHWSHZ8SKPvc6" target="_blank" rel="noopener">Open the booking page in a new tab →</a></span>
+  </p>
+</div>
+
+<script>
+  let lang = 'tr';
+  function setLang(l) {
+    lang = l; document.documentElement.lang = l;
+    document.querySelectorAll('.tr-text').forEach(e => e.classList.toggle('lang-hidden', l === 'en'));
+    document.querySelectorAll('.en-text').forEach(e => e.classList.toggle('lang-hidden', l === 'tr'));
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === l));
+  }
+</script>
+</body>
+</html>
