@@ -329,6 +329,16 @@
   .order-card.slide-in { animation: slidein 0.6s cubic-bezier(.2,.7,.3,1); }
   @keyframes slidein { from { opacity: 0; transform: translateY(-14px) scale(0.96); } to { opacity: 1; transform: none; } }
 
+  /* ── DEMO TRY ── */
+  .demo-try { display:grid; grid-template-columns:auto 1fr; gap:44px; align-items:center; max-width:780px; margin:0 auto; background:#fff; border:1px solid var(--rule); border-radius:20px; padding:40px; box-shadow:var(--shadow-sm); }
+  .demo-qr { width:196px; height:196px; border-radius:14px; border:1px solid var(--rule); padding:12px; background:#fff; flex-shrink:0; }
+  .demo-qr img { width:100%; height:100%; display:block; }
+  .demo-try h3 { font-size:23px; font-weight:600; letter-spacing:-0.02em; margin-bottom:10px; }
+  .demo-try p { font-size:15px; color:var(--ink-soft); font-weight:300; line-height:1.6; margin-bottom:6px; }
+  .demo-or { display:flex; align-items:center; gap:12px; color:var(--muted); font-size:12px; letter-spacing:0.05em; text-transform:uppercase; margin:18px 0; }
+  .demo-or::before, .demo-or::after { content:""; height:1px; background:var(--rule); flex:1; }
+  @media (max-width:720px){ .demo-try { grid-template-columns:1fr; text-align:center; padding:32px 24px; gap:28px; } .demo-qr { margin:0 auto; } }
+
   /* ── REVEAL ── */
   .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -374,7 +384,7 @@
     <a href="#features" data-tr="Özellikler" data-en="Features">Özellikler</a>
     <a href="#pricing" data-tr="Fiyatlandırma" data-en="Pricing">Fiyatlandırma</a>
     <a href="#faq" data-tr="SSS" data-en="FAQ">SSS</a>
-    <a href="/demo.html" data-tr="Demo" data-en="Demo">Demo</a>
+    <a href="#demo" data-tr="Demo" data-en="Demo">Demo</a>
     <a href="#contact" class="nav-btn lang-skip" id="nav-cta"><span class="tr-text">Erken erişim</span><span class="en-text lang-hidden">Early access</span></a>
     <div class="lang-switcher lang-skip">
       <button class="lang-btn active" onclick="setLang('tr')" aria-label="Türkçe">TR</button>
@@ -397,7 +407,7 @@
         <span class="en-text lang-hidden">Customers scan a QR code, order from their phone, and pay with iyzico. Orders land in the kitchen instantly. No app, no hardware, no monthly fee.</span>
       </p>
       <div class="hero-actions">
-        <a href="/demo.html" class="btn btn-primary"><span class="tr-text">Demoyu dene</span><span class="en-text lang-hidden">Try the demo</span><span class="btn-arrow"></span></a>
+        <a href="#demo" class="btn btn-primary"><span class="tr-text">Demoyu dene</span><span class="en-text lang-hidden">Try the demo</span><span class="btn-arrow"></span></a>
         <a href="#contact" class="btn btn-ghost"><span class="tr-text">Erken erişim al</span><span class="en-text lang-hidden">Get early access</span></a>
         <a href="/gorusme.html" class="btn btn-ghost"><span class="tr-text">Satış ekibiyle görüş</span><span class="en-text lang-hidden">Talk to sales</span><span class="btn-arrow"></span></a>
       </div>
@@ -499,6 +509,26 @@
         <div class="step-num">03</div>
         <div class="step-title"><span class="tr-text">Mutfak anında alır</span><span class="en-text lang-hidden">Kitchen gets it instantly</span></div>
         <div class="step-body"><span class="tr-text">Ödeme tamamlanır tamamlanmaz sipariş mutfak ekranında belirir. Durum güncellemeleri otomatik akar.</span><span class="en-text lang-hidden">The moment payment clears, the order appears on the kitchen display. Status updates flow automatically.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO (real app) -->
+<section class="band" id="demo">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <div class="kicker"><span class="tr-text">Demo</span><span class="en-text lang-hidden">Demo</span></div>
+      <h2 class="sec-title"><span class="tr-text">Konukla'yı kendiniz deneyin.</span><span class="en-text lang-hidden">Try Konukla yourself.</span></h2>
+      <p class="sec-sub"><span class="tr-text">Gerçek sipariş ve ödeme akışını telefonunuzda görün — örnek bir restoran menüsüyle.</span><span class="en-text lang-hidden">See the real ordering & payment flow on your phone — with a sample restaurant menu.</span></p>
+    </div>
+    <div class="demo-try reveal">
+      <div class="demo-qr"><img src="/assets/demo-qr.png" alt="Konukla demo QR" width="196" height="196"></div>
+      <div>
+        <h3><span class="tr-text">QR'ı okutup hemen deneyin</span><span class="en-text lang-hidden">Scan the QR and try it now</span></h3>
+        <p><span class="tr-text">Telefonunuzun kamerasıyla QR kodu okutun, gerçek sipariş deneyimine anında başlayın.</span><span class="en-text lang-hidden">Point your phone camera at the QR to jump straight into the live ordering experience.</span></p>
+        <div class="demo-or"><span class="tr-text">veya</span><span class="en-text lang-hidden">or</span></div>
+        <a href="https://app.konukla.com/demo/1" target="_blank" rel="noopener" class="btn btn-primary"><span class="tr-text">Demoyu aç</span><span class="en-text lang-hidden">Open the demo</span><span class="btn-arrow"></span></a>
       </div>
     </div>
   </div>
