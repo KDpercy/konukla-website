@@ -175,6 +175,20 @@
   .hero-media { display: flex; justify-content: center; position: relative; }
   .hero-media .glow { position: absolute; width: 360px; height: 360px; background: radial-gradient(circle, rgba(240,163,94,0.28), transparent 65%); top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 0; }
 
+  /* ── HERO PHOTO VARIANT (remove .hero--photo class + this block to revert) ── */
+  .hero--photo { position: relative; padding: 132px 0 120px; background: #0d0d12 url('/assets/hero.jpg') center center / cover no-repeat; }
+  .hero--photo::before { content: ""; position: absolute; inset: 0; z-index: 0;
+    background: linear-gradient(90deg, rgba(8,8,12,0.92) 0%, rgba(8,8,12,0.78) 34%, rgba(8,8,12,0.38) 62%, rgba(8,8,12,0.12) 100%); }
+  .hero--photo .wrap { position: relative; z-index: 1; }
+  .hero--photo .hero-grid { grid-template-columns: 1fr; max-width: 620px; }
+  .hero--photo .hero-media { display: none; }                 /* hide the phone mockup over the photo */
+  .hero--photo .eyebrow { background: rgba(255,255,255,0.12); color: #fff; }
+  .hero--photo h1 { color: #fff; }
+  .hero--photo h1 em { color: var(--accent); }
+  .hero--photo .hero-sub { color: rgba(255,255,255,0.86); }
+  .hero--photo .hm-n { color: #fff; }
+  .hero--photo .hm-l { color: rgba(255,255,255,0.7); }
+
   /* ── DEVICE: PHONE ── */
   .phone { position: relative; z-index: 1; width: 282px; background: #1b1714; border-radius: 42px; padding: 10px; box-shadow: var(--shadow); flex-shrink: 0; }
   .phone-screen { background: #fff; border-radius: 33px; overflow: hidden; position: relative; }
@@ -390,6 +404,10 @@
     .hero-grid { grid-template-columns: 1fr; gap: 48px; text-align: center; }
     .hero-sub { margin-left: auto; margin-right: auto; }
     .hero-actions, .hero-metrics { justify-content: center; }
+    /* photo hero on mobile: keep the QR-tent (left) side in frame + darker scrim for legibility */
+    .hero--photo { padding: 96px 0 84px; background-position: left center; }
+    .hero--photo::before { background: linear-gradient(180deg, rgba(8,8,12,0.74) 0%, rgba(8,8,12,0.82) 60%, rgba(8,8,12,0.9) 100%); }
+    .hero--photo .hero-grid { max-width: 100%; }
     .feature, .cta-band { grid-template-columns: 1fr; gap: 32px; }
     .feature--rev .feature-media { order: 0; }
     .feature { text-align: center; margin-bottom: 72px; }
@@ -436,7 +454,7 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero hero--photo">
   <div class="wrap hero-grid">
     <div class="reveal">
       <div class="eyebrow"><span class="pulse"></span><span class="tr-text">QR sipariş & ödeme altyapısı</span><span class="en-text lang-hidden">QR ordering & payment infrastructure</span></div>
