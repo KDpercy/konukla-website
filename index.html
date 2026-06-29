@@ -138,17 +138,6 @@
   .lang-btn.active { background: var(--ink); color: #fff; }
   .lang-btn:hover:not(.active) { color: var(--ink); }
 
-  /* ── NAV over photo hero: transparent + light at top, solid white on scroll ── */
-  nav:not(.scrolled) { background: transparent; backdrop-filter: none; }
-  nav:not(.scrolled) .nav-links a:not(.nav-btn) { color: rgba(255,255,255,0.92); }
-  nav:not(.scrolled) .nav-links a:not(.nav-btn):hover { color: #fff; }
-  nav:not(.scrolled) .lang-switcher { border-color: rgba(255,255,255,0.4); }
-  nav:not(.scrolled) .lang-btn { color: rgba(255,255,255,0.85); }
-  nav:not(.scrolled) .lang-btn.active { background: rgba(255,255,255,0.92); color: var(--ink); }
-  .nav-logo .logo-light { display: none; }
-  nav:not(.scrolled) .nav-logo .logo-dark { display: none; }
-  nav:not(.scrolled) .nav-logo .logo-light { display: block; }
-
   /* ── BUTTONS ── */
   .btn {
     display: inline-flex; align-items: center; gap: 8px; font-family: var(--font);
@@ -187,7 +176,7 @@
   .hero-media .glow { position: absolute; width: 360px; height: 360px; background: radial-gradient(circle, rgba(240,163,94,0.28), transparent 65%); top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 0; }
 
   /* ── HERO PHOTO VARIANT (remove .hero--photo class + this block to revert) ── */
-  .hero--photo { position: relative; margin-top: -64px; padding: 152px 0 120px; background: #0d0d12 url('/assets/hero.jpg') center center / cover no-repeat; }
+  .hero--photo { position: relative; padding: 132px 0 120px; background: #0d0d12 url('/assets/hero.jpg') center center / cover no-repeat; }
   .hero--photo::before { content: ""; position: absolute; inset: 0; z-index: 0;
     background: linear-gradient(90deg, rgba(8,8,12,0.92) 0%, rgba(8,8,12,0.78) 34%, rgba(8,8,12,0.38) 62%, rgba(8,8,12,0.12) 100%); }
   .hero--photo .wrap { position: relative; z-index: 1; }
@@ -416,7 +405,7 @@
     .hero-sub { margin-left: auto; margin-right: auto; }
     .hero-actions, .hero-metrics { justify-content: center; }
     /* photo hero on mobile: keep the QR-tent (left) side in frame + darker scrim for legibility */
-    .hero--photo { padding: 116px 0 84px; background-position: left center; }
+    .hero--photo { padding: 96px 0 84px; background-position: left center; }
     .hero--photo::before { background: linear-gradient(180deg, rgba(8,8,12,0.74) 0%, rgba(8,8,12,0.82) 60%, rgba(8,8,12,0.9) 100%); }
     .hero--photo .hero-grid { max-width: 100%; }
     .feature, .cta-band { grid-template-columns: 1fr; gap: 32px; }
@@ -449,7 +438,7 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="nav-logo" aria-label="Konukla"><img class="logo-dark" src="/assets/konukla-logo.png" alt="Konukla"><img class="logo-light" src="/assets/konukla-logo-white.png" alt="Konukla"></a>
+  <a href="#" class="nav-logo" aria-label="Konukla"><img src="/assets/konukla-logo.png" alt="Konukla"></a>
   <div class="nav-links">
     <a href="#how" data-tr="Nasıl çalışır" data-en="How it works">Nasıl çalışır</a>
     <a href="#features" data-tr="Özellikler" data-en="Features">Özellikler</a>
