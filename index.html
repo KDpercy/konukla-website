@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Konukla — Restoranlar için QR sipariş altyapısı</title>
-<meta name="description" content="Konukla, restoranlar için QR kodla masadan sipariş ve ödeme altyapısı. Müşteriler telefonlarından sipariş verir, Tami (Garanti BBVA) ile öder; siparişler anında mutfağa düşer. Uygulama yok, aylık ücret yok.">
+<meta name="description" content="Konukla, restoranlar için QR kodla masadan sipariş altyapısı. Müşteriler telefonlarından sipariş verir, ödemeye hazır olunca garsonu çağırır; siparişler anında mutfağa düşer. Uygulama yok, aylık ücret yok.">
 <link rel="canonical" href="https://konukla.com/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/assets/konukla-favicon.svg">
@@ -14,7 +14,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Konukla — Restoranlar için QR sipariş altyapısı">
-<meta property="og:description" content="Müşteriler QR kodu okutup telefonlarından sipariş veriyor ve Tami (Garanti BBVA) ile ödüyor. Uygulama yok, aylık ücret yok.">
+<meta property="og:description" content="Müşteriler QR kodu okutup telefonlarından sipariş veriyor; ödemeye hazır olunca tek dokunuşla garsonu çağırıyor. Uygulama yok, aylık ücret yok.">
 <meta property="og:image" content="https://konukla.com/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -33,7 +33,7 @@
       "url": "https://konukla.com",
       "logo": "https://konukla.com/assets/konukla-logo.png",
       "image": "https://konukla.com/assets/konukla-logo.png",
-      "description": "Restoran ve kafeler için QR kod ile masadan sipariş ve ödeme altyapısı. Müşteriler telefonlarından sipariş verir ve Tami (Garanti BBVA) ile öder.",
+      "description": "Restoran ve kafeler için QR kod ile masadan sipariş altyapısı. Müşteriler telefonlarından sipariş verir ve ödemeye hazır olunca garsonu çağırır.",
       "email": "destek@konukla.com",
       "telephone": "+905306529108",
       "sameAs": ["https://www.linkedin.com/company/konukla"],
@@ -445,8 +445,8 @@
         <span class="en-text lang-hidden">Order from the table, <em>pay by phone.</em></span>
       </h1>
       <p class="hero-sub">
-        <span class="tr-text">Müşteriler QR kodu okutup telefonlarından sipariş veriyor ve Tami (Garanti BBVA) ile ödüyor. Siparişler anında mutfağa düşüyor. Uygulama yok, donanım yok, aylık ücret yok.</span>
-        <span class="en-text lang-hidden">Customers scan a QR code, order from their phone, and pay with Tami (Garanti BBVA). Orders land in the kitchen instantly. No app, no hardware, no monthly fee.</span>
+        <span class="tr-text">Müşteriler QR kodu okutup telefonlarından sipariş veriyor; ödemeye hazır olunca tek dokunuşla garsonu çağırıyor. Siparişler anında mutfağa düşüyor. Uygulama yok, donanım yok, aylık ücret yok.</span>
+        <span class="en-text lang-hidden">Customers scan a QR code, order from their phone, and call the waiter to pay when they're ready. Orders land in the kitchen instantly. No app, no hardware, no monthly fee.</span>
       </p>
       <div class="hero-actions">
         <a href="#demo" class="btn btn-primary"><span class="tr-text">Demoyu dene</span><span class="en-text lang-hidden">Try the demo</span><span class="btn-arrow"></span></a>
@@ -459,8 +459,8 @@
           <div class="hm-l"><span class="tr-text">kurulum & aylık ücret</span><span class="en-text lang-hidden">setup & monthly fee</span></div>
         </div>
         <div class="hm">
-          <div class="hm-n">Tami</div>
-          <div class="hm-l"><span class="tr-text">güvenli ödeme altyapısı</span><span class="en-text lang-hidden">secure payments</span></div>
+          <div class="hm-n">Masada</div>
+          <div class="hm-l"><span class="tr-text">kartla veya nakit öde</span><span class="en-text lang-hidden">pay by card or cash</span></div>
         </div>
         <div class="hm">
           <div class="hm-n"><span class="tr-text">Uygulamasız</span><span class="en-text lang-hidden">No app</span></div>
@@ -611,15 +611,15 @@
       </div>
     </div>
 
-    <!-- F2: Tami (Garanti BBVA) payment -->
+    <!-- F2: pay at the table -->
     <div class="feature feature--rev reveal">
       <div class="feature-text">
-        <h3><span class="tr-text">Tami (Garanti BBVA) ile güvenli ödeme</span><span class="en-text lang-hidden">Secure payment with Tami (Garanti BBVA)</span></h3>
+        <h3><span class="tr-text">Masada güvenli ödeme</span><span class="en-text lang-hidden">Pay at the table</span></h3>
         <p><span class="tr-text">Kart, Apple Pay ve Google Pay. Yerel kartlar ve taksit seçenekleri tam desteklenir. Kart bilgileri sunucularınıza asla ulaşmaz — PCI uyumluluğu baştan dahildir.</span><span class="en-text lang-hidden">Card, Apple Pay, and Google Pay, with full support for local cards and installments. Card data never touches your servers — PCI compliance is built in.</span></p>
         <ul>
           <li><span class="tr-text">Apple Pay & Google Pay tek dokunuşla</span><span class="en-text lang-hidden">Apple Pay & Google Pay in one tap</span></li>
           <li><span class="tr-text">Yerel kart ve taksit desteği</span><span class="en-text lang-hidden">Local card & installment support</span></li>
-          <li><span class="tr-text">PCI sorumluluğu sizde değil</span><span class="en-text lang-hidden">Zero PCI liability on your side</span></li>
+          <li><span class="tr-text">PCI sorumluluğu sizde değil</span><span class="en-text lang-hidden">No card handling on your side</span></li>
         </ul>
       </div>
       <div class="feature-media">
@@ -640,7 +640,7 @@
             <div class="pay-or"><span class="tr-text">veya kartla öde</span><span class="en-text lang-hidden">or pay by card</span></div>
             <div class="pay-card">💳 •••• 4242 <span class="vbadge">VISA</span></div>
             <div class="pay-btn">₺517 <span class="tr-text" style="margin-left:4px">Öde</span><span class="en-text lang-hidden" style="margin-left:4px">Pay</span></div>
-            <div class="pay-secure">🔒 <span class="tr-text">Tami (Garanti BBVA) ile güvenli ödeme</span><span class="en-text lang-hidden">Secured by Tami (Garanti BBVA)</span></div>
+            <div class="pay-secure">🔒 <span class="tr-text">Masada güvenli ödeme</span><span class="en-text lang-hidden">Secure payment at the table</span></div>
           </div>
         </div>
       </div>
@@ -682,7 +682,7 @@
       <div class="fcard"><div class="fcard-ic">🏬</div><div class="fcard-title"><span class="tr-text">Çok lokasyonlu menü</span><span class="en-text lang-hidden">Multi-location menus</span></div><div class="fcard-body"><span class="tr-text">Marka düzeyinde temel menü oluşturun; her şube fiyat ve stoğu bağımsız düzenler.</span><span class="en-text lang-hidden">Set a base menu at brand level; each location overrides price and availability independently.</span></div></div>
       <div class="fcard"><div class="fcard-ic">⚙️</div><div class="fcard-title"><span class="tr-text">Özelleştirme seçenekleri</span><span class="en-text lang-hidden">Customization options</span></div><div class="fcard-body"><span class="tr-text">Acı seviyesi, porsiyon, ek malzeme ve notlar — müşteri tam istediğini belirtir.</span><span class="en-text lang-hidden">Spice level, portion, extras, and notes — customers configure exactly what they want.</span></div></div>
       <div class="fcard"><div class="fcard-ic">📊</div><div class="fcard-title"><span class="tr-text">Restoran analitiği</span><span class="en-text lang-hidden">Restaurant analytics</span></div><div class="fcard-body"><span class="tr-text">En çok satan ürünler, yoğun saatler, ortalama sipariş tutarı ve masa devir hızı.</span><span class="en-text lang-hidden">Top dishes, peak hours, average order value, and table turnover.</span></div></div>
-      <div class="fcard"><div class="fcard-ic">🔒</div><div class="fcard-title"><span class="tr-text">PCI sorumluluğu yok</span><span class="en-text lang-hidden">Zero PCI liability</span></div><div class="fcard-body"><span class="tr-text">Tami (Garanti BBVA) altyapısıyla çalışır; kart bilgileri sunucularınıza asla ulaşmaz.</span><span class="en-text lang-hidden">Powered by Tami (Garanti BBVA); card data never touches your servers.</span></div></div>
+      <div class="fcard"><div class="fcard-ic">🔒</div><div class="fcard-title"><span class="tr-text">Kart derdi yok</span><span class="en-text lang-hidden">No card handling</span></div><div class="fcard-body"><span class="tr-text">Ödeme masada, restoranın kendi POS'unda alınır. Konukla kart işlemez, kart bilgileri hiçbir sunucuya ulaşmaz.</span><span class="en-text lang-hidden">Payment happens at the table on the restaurant's own POS. Konukla never processes cards.</span></div></div>
       <div class="fcard"><div class="fcard-ic">📱</div><div class="fcard-title"><span class="tr-text">Donanım gerekmez</span><span class="en-text lang-hidden">No hardware needed</span></div><div class="fcard-body"><span class="tr-text">Mevcut tabletiniz veya ekranınız yeterli. Yeni cihaz almanıza gerek yok.</span><span class="en-text lang-hidden">Your existing tablet or screen is enough. No new devices to buy.</span></div></div>
       <div class="fcard"><div class="fcard-ic">💸</div><div class="fcard-title"><span class="tr-text">Aylık ücret yok</span><span class="en-text lang-hidden">No monthly fee</span></div><div class="fcard-body"><span class="tr-text">Kurulum ücreti ve abonelik yok. Yalnızca işlem gerçekleştiğinde ödersiniz.</span><span class="en-text lang-hidden">No setup cost or subscription. You only pay when a transaction happens.</span></div></div>
     </div>
@@ -762,7 +762,7 @@
       </details>
       <details class="faq-item">
         <summary><span class="tr-text">Ödemeler güvenli mi?</span><span class="en-text lang-hidden">Are payments secure?</span></summary>
-        <p><span class="tr-text">Tüm ödemeler lisanslı ödeme kuruluşu Tami (Garanti BBVA) altyapısı üzerinden alınır. Kart bilgileri bizim veya sizin sunucularınıza asla ulaşmaz; PCI uyumluluğu baştan dahildir.</span><span class="en-text lang-hidden">All payments are processed through Tami (Garanti BBVA), a licensed payment institution. Card data never touches our servers or yours, and PCI compliance is built in.</span></p>
+        <p><span class="tr-text">Ödeme masada, restoranın kendi POS cihazında alınır. Konukla ödeme işlemez; kart bilgileri hiçbir sunucuya ulaşmaz. Garanti BBVA iş birliğiyle.</span><span class="en-text lang-hidden">Payment is taken at the table on the restaurant's own POS. Konukla never processes payments, so card data never touches any server. In collaboration with Garanti BBVA.</span></p>
       </details>
       <details class="faq-item">
         <summary><span class="tr-text">Müşteriler uygulama indirmek zorunda mı?</span><span class="en-text lang-hidden">Do customers have to download an app?</span></summary>
@@ -861,9 +861,9 @@
   </div>
   <div class="legal-bottom">
     <p>© <span id="year"></span> Konukla. <span class="tr-text">Tüm hakları saklıdır.</span><span class="en-text lang-hidden">All rights reserved.</span></p>
-    <p><span class="tr-text">Ödemeler Tami (Garanti BBVA) altyapısı ile güvenle alınır.</span><span class="en-text lang-hidden">Payments secured by Tami (Garanti BBVA).</span></p>
-    <div style="display:flex;justify-content:center;margin-top:12px" aria-label="Güvenli ödeme: Visa, Mastercard, Amex, Troy, Tami (Garanti BBVA)">
-      <span style="background:#fff;border-radius:8px;padding:8px 14px;display:inline-flex;align-items:center;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,.12)"><span style="font-size:13px;color:#555;font-weight:600">Visa &middot; Mastercard &middot; Amex &middot; Troy</span><img src="/assets/tami-logo.svg" alt="Tami - Garanti BBVA güvenli ödeme" style="height:28px;display:block"></span>
+    <p><span class="tr-text">Masada güvenli ödeme. Garanti BBVA iş birliğiyle.</span><span class="en-text lang-hidden">Secure payment at the table. In collaboration with Garanti BBVA.</span></p>
+    <div style="display:flex;justify-content:center;margin-top:12px" aria-label="Ödeme: Visa, Mastercard, Amex, Troy, Garanti BBVA iş birliği">
+      <span style="background:#fff;border-radius:8px;padding:8px 14px;display:inline-flex;align-items:center;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,.12)"><span style="font-size:13px;color:#555;font-weight:600">Visa &middot; Mastercard &middot; Amex &middot; Troy</span><img src="/assets/garanti-logo.svg" alt="Garanti BBVA iş birliği" style="height:24px;display:block"></span>
     </div>
   </div>
 </footer>
