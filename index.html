@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Konukla — Restoranlar için QR sipariş altyapısı</title>
-<meta name="description" content="Konukla, restoranlar için QR kodla masadan sipariş altyapısı. Müşteriler telefonlarından sipariş verir, ödemeye hazır olunca garsonu çağırır; siparişler anında mutfağa düşer. Uygulama yok, aylık ücret yok.">
+<meta name="description" content="Konukla, restoranlar için QR ile masadan sipariş çözümü. Müşteriler telefonlarından sipariş verir; ödeme masada, restoranın kendi POS cihazında kartla veya nakit, Garanti BBVA iş birliğiyle alınır. Konukla ödeme işlemez. Uygulama yok, aylık ücret yok.">
 <link rel="canonical" href="https://konukla.com/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/assets/konukla-favicon.svg">
@@ -14,13 +14,14 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Konukla — Restoranlar için QR sipariş altyapısı">
-<meta property="og:description" content="Müşteriler QR kodu okutup telefonlarından sipariş veriyor; ödemeye hazır olunca tek dokunuşla garsonu çağırıyor. Uygulama yok, aylık ücret yok.">
-<meta property="og:image" content="https://konukla.com/assets/og-image.png">
+<meta property="og:description" content="Müşteriler QR ile telefonlarından sipariş veriyor; ödeme masada, restoranın kendi POS cihazında alınıyor. Garanti BBVA iş birliği. Uygulama yok, aylık ücret yok.">
+<meta property="og:image" content="https://konukla.com/assets/og-image.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Konukla — Restoranlar için QR ile masadan sipariş">
 <meta property="og:url" content="https://konukla.com">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://konukla.com/assets/og-image.png">
+<meta name="twitter:image" content="https://konukla.com/assets/og-image.png?v=2">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -33,7 +34,7 @@
       "url": "https://konukla.com",
       "logo": "https://konukla.com/assets/konukla-logo.png",
       "image": "https://konukla.com/assets/konukla-logo.png",
-      "description": "Restoran ve kafeler için QR kod ile masadan sipariş altyapısı. Müşteriler telefonlarından sipariş verir ve ödemeye hazır olunca garsonu çağırır.",
+      "description": "Restoran ve kafeler için QR kod ile masadan sipariş çözümü. Müşteriler telefonlarından sipariş verir; ödeme masada, restoranın kendi POS cihazında kartla veya nakit, Garanti BBVA iş birliğiyle alınır. Konukla ödeme işlemez veya kart bilgisi saklamaz.",
       "email": "destek@konukla.com",
       "telephone": "+905306529108",
       "sameAs": ["https://www.linkedin.com/company/konukla"],
@@ -53,6 +54,28 @@
       "name": "Konukla",
       "publisher": { "@id": "https://konukla.com/#organization" },
       "inLanguage": "tr-TR"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://konukla.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Konukla ödemeleri nasıl alınır?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ödeme masada, restoranın kendi POS cihazında kartla veya nakit alınır. Müşteri siparişini Konukla ile verir, ödemeye hazır olunca garsonu çağırır ve garson POS cihazını masaya getirir. Konukla ödemeyi işlemez; ödeme çözümü Garanti BBVA iş birliğiyle sunulur."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Konukla kart bilgisi saklar mı veya online ödeme alır mı?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hayır. Konukla online ödeme almaz, kart bilgisi işlemez veya saklamaz. Ödeme yalnızca masada, restoranın kendi POS terminalinde gerçekleşir. Ödeme çözümü Garanti BBVA iş birliğiyledir."
+          }
+        }
+      ]
     }
   ]
 }
