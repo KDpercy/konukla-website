@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Demo Sipariş — Konukla</title>
-<meta name="description" content="Konukla QR sipariş deneyimini canlı deneyin — menüye göz atın, sepete ekleyin, ödeme akışını görün.">
+<title>Demo Order — Konukla</title>
+<meta name="description" content="Try the Konukla QR ordering experience live — browse the menu, add to cart, and see the payment flow.">
 <link rel="icon" type="image/svg+xml" href="/assets/konukla-favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -99,10 +99,11 @@
 <div class="topbar">
   <a href="/" class="brand" aria-label="Konukla"><img src="/assets/konukla-logo.png" alt="Konukla"></a>
   <div class="right">
-    <a href="/" class="home"><span class="tr-text">← Ana sayfa</span><span class="en-text lang-hidden">← Home</span></a>
+    <a href="/" class="home"><span class="tr-text lang-hidden">← Ana sayfa</span><span class="en-text">← Home</span></a>
     <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('tr')" aria-label="Türkçe">TR</button>
-      <button class="lang-btn" onclick="setLang('en')" aria-label="English">EN</button>
+      <button class="lang-btn active" onclick="setLang('en')" aria-label="English">EN</button>
+      <button class="lang-btn" onclick="setLang('tr')" aria-label="Türkçe">TR</button>
+      <button class="lang-btn" onclick="setLang('es')" aria-label="Español">ES</button>
     </div>
   </div>
 </div>
@@ -198,8 +199,62 @@
     { id:12, cat:'İçecekler', catEn:'Drinks', tr:'Şalgam Suyu', en:'Şalgam Juice', dTr:'Acılı / acısız', dEn:'Spicy / mild', price:40 },
   ];
 
-  let lang = 'tr';
+  let lang = 'en';
+  const LANGS = ['en', 'tr', 'es'];
+  const norm = (s) => s.replace(/\s+/g, ' ').trim();
   const cart = {}; // id -> qty
+
+  // Spanish overlay, keyed on the English text (static UI + dynamic menu items).
+  // Applied in applyLang() so re-rendered menu/checkout content is translated too.
+  const ES = {
+    "← Home": "← Inicio",
+    "This is an interactive demo — no real payment is charged. Try Konukla's at-table ordering experience.": "Esta es una demo interactiva: no se cobra ningún pago real. Prueba la experiencia de pedido en mesa de Konukla.",
+    "Kadıköy · Table 1 · Order via QR": "Kadıköy · Mesa 1 · Pide por QR",
+    "items": "artículos",
+    "Order & Pay": "Pedir y pagar",
+    "Order Summary": "Resumen del pedido",
+    "Lezzet Durağı · Table 1": "Lezzet Durağı · Mesa 1",
+    "Total": "Total",
+    "Card Number": "Número de tarjeta",
+    "Expiry": "Caducidad",
+    "Complete Payment": "Completar pago",
+    "🔒 In real use, payment is taken at the table on the restaurant's own POS. No payment is processed in this demo.": "🔒 En uso real, el pago se cobra en la mesa con el propio TPV del restaurante. En esta demo no se procesa ningún pago.",
+    "Order received!": "¡Pedido recibido!",
+    "Your order has been sent to the kitchen. Enjoy!": "Tu pedido se ha enviado a la cocina. ¡Que aproveche!",
+    "Order No": "Nº de pedido",
+    "Restart demo": "Reiniciar demo",
+    "Back to home": "Volver al inicio",
+    // Categories
+    "Starters": "Entrantes",
+    "Mains": "Platos principales",
+    "Desserts": "Postres",
+    "Drinks": "Bebidas",
+    // Dishes + descriptions
+    "Lentil Soup": "Sopa de lentejas",
+    "Traditional red lentil soup": "Sopa tradicional de lentejas rojas",
+    "Hummus Plate": "Plato de hummus",
+    "Chickpea purée, tahini and fresh pita": "Puré de garbanzos, tahini y pita fresca",
+    "Cheese Rolls (6 pcs)": "Rollitos de queso (6 uds)",
+    "Crispy pastry with white cheese": "Masa crujiente con queso blanco",
+    "Grilled Meatballs": "Albóndigas a la parrilla",
+    "Handmade beef meatballs with rice": "Albóndigas de ternera caseras con arroz",
+    "Chicken Skewer": "Brocheta de pollo",
+    "Marinated chicken, bulgur and salad": "Pollo marinado, bulgur y ensalada",
+    "Adana Kebab": "Kebab Adana",
+    "Spicy hand-minced kebab with lavash": "Kebab picante de carne picada a mano con lavash",
+    "Turkish Dumplings": "Raviolis turcos (mantı)",
+    "Handmade dumplings, yogurt and butter": "Raviolis caseros, yogur y mantequilla",
+    "Künefe": "Künefe",
+    "Shredded pastry, cheese and syrup": "Masa de cabello de ángel, queso y almíbar",
+    "Rice Pudding": "Arroz con leche",
+    "Oven-baked traditional rice pudding": "Arroz con leche tradicional al horno",
+    "Ayran": "Ayran",
+    "Homemade fresh ayran": "Ayran fresco casero",
+    "Turkish Coffee": "Café turco",
+    "Double Turkish coffee": "Café turco doble",
+    "Şalgam Juice": "Zumo de Şalgam",
+    "Spicy / mild": "Picante / suave"
+  };
 
   const fmt = (n) => n.toFixed(2).replace('.', ',');
 
@@ -273,17 +328,36 @@
   }
 
   function setLang(l) {
-    lang = l; document.documentElement.lang = l;
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === l));
+    if (!LANGS.includes(l)) l = 'en';
+    lang = l;
+    document.documentElement.lang = l;
+    try { localStorage.setItem('konukla_lang', l); } catch (e) {}
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim().toLowerCase() === l));
     applyLang();
   }
   function applyLang() {
-    document.querySelectorAll('.tr-text').forEach(e => e.classList.toggle('lang-hidden', lang === 'en'));
+    const showEnglishSpans = lang !== 'tr';
+    document.querySelectorAll('.tr-text').forEach(e => e.classList.toggle('lang-hidden', showEnglishSpans));
     document.querySelectorAll('.en-text').forEach(e => e.classList.toggle('lang-hidden', lang === 'tr'));
+    // Overlay Spanish onto (or restore English into) the English spans.
+    document.querySelectorAll('.en-text').forEach(e => {
+      if (e.dataset.enHtml === undefined) {
+        e.dataset.enHtml = e.innerHTML;
+        e.dataset.enKey = norm(e.textContent);
+      }
+      const es = ES[e.dataset.enKey];
+      e.innerHTML = (lang === 'es' && es !== undefined) ? es : e.dataset.enHtml;
+    });
   }
 
   renderMenu();
   renderCart();
+
+  (function initLang() {
+    let saved = 'en';
+    try { saved = localStorage.getItem('konukla_lang') || 'en'; } catch (e) {}
+    setLang(LANGS.includes(saved) ? saved : 'en');
+  })();
 </script>
 </body>
 </html>

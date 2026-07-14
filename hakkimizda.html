@@ -1,53 +1,134 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hakkımızda — Konukla</title>
-<meta name="description" content="Konukla, restoran, kafe ve oteller için QR kod ile sipariş ve ödeme platformudur. Misyonumuz, işletmeler ve misafirler için sipariş deneyimini hızlı, güvenli ve zahmetsiz hâle getirmektir.">
+<title>About — Konukla</title>
+<meta name="description" content="Konukla is a QR-code ordering and payment platform for restaurants, cafés, and hotels. Our mission is to make ordering fast, secure, and effortless for venues and guests alike.">
 <link rel="icon" type="image/svg+xml" href="/assets/konukla-favicon.svg">
 <link rel="stylesheet" href="/legal/legal.css">
+<style>
+  .lang-hidden { display:none !important; }
+  .legal-nav .nav-right { display:flex; align-items:center; gap:16px; margin-left:auto; }
+  .lang-switcher { display:flex; border:1px solid rgba(255,255,255,0.25); border-radius:7px; overflow:hidden; }
+  .lang-btn { padding:5px 10px; font-size:11px; font-weight:600; letter-spacing:.04em; cursor:pointer; color:rgba(255,255,255,0.6); background:transparent; border:none; }
+  .lang-btn.active { background:#fff; color:#231A18; }
+</style>
 </head>
 <body>
 <nav class="legal-nav">
   <a href="/" class="brand" aria-label="Konukla"><img src="/assets/konukla-logo-on-dark.png" alt="Konukla"></a>
-  <a href="/" class="home">Ana sayfa</a>
+  <div class="nav-right">
+    <a href="/" class="home"><span class="tr-text lang-hidden">Ana sayfa</span><span class="en-text">Home</span></a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('en')" aria-label="English">EN</button>
+      <button class="lang-btn" onclick="setLang('tr')" aria-label="Türkçe">TR</button>
+      <button class="lang-btn" onclick="setLang('es')" aria-label="Español">ES</button>
+    </div>
+  </div>
 </nav>
 <main class="legal-wrap">
-  <h1>Hakkımızda</h1>
+  <h1><span class="tr-text lang-hidden">Hakkımızda</span><span class="en-text">About us</span></h1>
 
-  <p>Konukla, restoran, kafe ve otel gibi işletmeler için <strong>QR kod ile sipariş ve ödeme</strong> platformudur. Misafirler masadaki QR kodu okutarak menüye ulaşır, siparişini verir ve ödemesini güvenle, garson beklemeden tamamlar. İşletmeler ise siparişleri tek bir panelden yönetir; mutfak ekranı, masa takibi ve ödeme akışı uçtan uca entegredir.</p>
-
-  <h2>Misyonumuz</h2>
-  <p>Sipariş ve ödeme sürecindeki bekleme ve karmaşayı ortadan kaldırmak; misafirler için hızlı ve zahmetsiz, işletmeler için verimli ve şeffaf bir deneyim sunmak.</p>
-
-  <h2>Ne Yapıyoruz?</h2>
-  <ul>
-    <li><strong>QR ile sipariş:</strong> Misafir, masadaki kodu okutur ve dijital menüden sipariş verir.</li>
-    <li><strong>Masada güvenli ödeme:</strong> Ödeme, restoranın kendi POS cihazında masada alınır. Konukla kart bilgisi işlemez veya saklamaz. Garanti BBVA iş birliğiyle.</li>
-    <li><strong>Mutfak ve masa yönetimi:</strong> Onaylanan siparişler anında mutfağa ve işletme paneline düşer.</li>
-    <li><strong>Bahşiş ve fiş:</strong> Misafir dilerse bahşiş ekleyebilir ve ödeme onayını e-posta ile alabilir.</li>
-  </ul>
-
-  <h2>Çözüm Ortağımız</h2>
-  <p>Ödeme, restoranın kendi POS cihazında masada alınır. Konukla ödeme işlemez veya kart bilgisi saklamaz. Garanti BBVA iş birliğiyle.</p>
-
-  <h2>Şirket Bilgileri</h2>
-  <ul>
-    <li><strong>Unvan:</strong> DAKAR Endüstri Ürünleri Pazarlama ve Ticaret Limited Şirketi</li>
-    <li><strong>Adres:</strong> Seyrantepe Mah. Katip Sk. No:22 İç Kapı No:5 Kağıthane / İstanbul</li>
-    <li><strong>MERSİS No:</strong> 0267007473800015</li>
-    <li><strong>Vergi Dairesi / No:</strong> Maslak V.D. · 2670074738</li>
-  </ul>
-
-  <h2>İletişim</h2>
   <p>
-    E-posta: <a href="mailto:destek@konukla.com">destek@konukla.com</a><br>
-    Telefon: <a href="tel:+905306529108">+90 530 652 91 08</a><br>
-    Web: <a href="https://konukla.com">konukla.com</a>
+    <span class="tr-text lang-hidden">Konukla, restoran, kafe ve otel gibi işletmeler için <strong>QR kod ile sipariş ve ödeme</strong> platformudur. Misafirler masadaki QR kodu okutarak menüye ulaşır, siparişini verir ve ödemesini güvenle, garson beklemeden tamamlar. İşletmeler ise siparişleri tek bir panelden yönetir; mutfak ekranı, masa takibi ve ödeme akışı uçtan uca entegredir.</span>
+    <span class="en-text">Konukla is a <strong>QR-code ordering and payment</strong> platform for venues like restaurants, cafés, and hotels. Guests scan the QR code at their table to open the menu, place their order, and settle up securely. Venues manage every order from a single panel; the kitchen display, table tracking, and payment flow are integrated end to end.</span>
   </p>
 
-  <p class="updated">Son güncelleme: 2026-06-21</p>
+  <h2><span class="tr-text lang-hidden">Misyonumuz</span><span class="en-text">Our mission</span></h2>
+  <p>
+    <span class="tr-text lang-hidden">Sipariş ve ödeme sürecindeki bekleme ve karmaşayı ortadan kaldırmak; misafirler için hızlı ve zahmetsiz, işletmeler için verimli ve şeffaf bir deneyim sunmak.</span>
+    <span class="en-text">To remove the waiting and friction from ordering and payment — a fast, effortless experience for guests and an efficient, transparent one for venues.</span>
+  </p>
+
+  <h2><span class="tr-text lang-hidden">Ne Yapıyoruz?</span><span class="en-text">What we do</span></h2>
+  <ul>
+    <li><span class="tr-text lang-hidden"><strong>QR ile sipariş:</strong> Misafir, masadaki kodu okutur ve dijital menüden sipariş verir.</span><span class="en-text"><strong>QR ordering:</strong> the guest scans the code at their table and orders from the digital menu.</span></li>
+    <li><span class="tr-text lang-hidden"><strong>Masada güvenli ödeme:</strong> Ödeme, restoranın kendi POS cihazında masada alınır. Konukla kart bilgisi işlemez veya saklamaz. Garanti BBVA iş birliğiyle.</span><span class="en-text"><strong>Secure payment at the table:</strong> payment is taken at the table on the restaurant's own POS. Konukla never processes or stores card data. In collaboration with Garanti BBVA.</span></li>
+    <li><span class="tr-text lang-hidden"><strong>Mutfak ve masa yönetimi:</strong> Onaylanan siparişler anında mutfağa ve işletme paneline düşer.</span><span class="en-text"><strong>Kitchen & table management:</strong> confirmed orders drop into the kitchen and the venue panel instantly.</span></li>
+    <li><span class="tr-text lang-hidden"><strong>Bahşiş ve fiş:</strong> Misafir dilerse bahşiş ekleyebilir ve ödeme onayını e-posta ile alabilir.</span><span class="en-text"><strong>Tips & receipts:</strong> guests can add a tip and receive their payment confirmation by email.</span></li>
+  </ul>
+
+  <h2><span class="tr-text lang-hidden">Çözüm Ortağımız</span><span class="en-text">Our partner</span></h2>
+  <p>
+    <span class="tr-text lang-hidden">Ödeme, restoranın kendi POS cihazında masada alınır. Konukla ödeme işlemez veya kart bilgisi saklamaz. Garanti BBVA iş birliğiyle.</span>
+    <span class="en-text">Payment is taken at the table on the restaurant's own POS. Konukla never processes payments or stores card data. In collaboration with Garanti BBVA.</span>
+  </p>
+
+  <h2><span class="tr-text lang-hidden">Şirket Bilgileri</span><span class="en-text">Company details</span></h2>
+  <ul>
+    <li><span class="tr-text lang-hidden"><strong>Unvan:</strong></span><span class="en-text"><strong>Legal name:</strong></span> DAKAR Endüstri Ürünleri Pazarlama ve Ticaret Limited Şirketi</li>
+    <li><span class="tr-text lang-hidden"><strong>Adres:</strong></span><span class="en-text"><strong>Address:</strong></span> Seyrantepe Mah. Katip Sk. No:22 İç Kapı No:5 Kağıthane / İstanbul</li>
+    <li><span class="tr-text lang-hidden"><strong>MERSİS No:</strong></span><span class="en-text"><strong>MERSİS No:</strong></span> 0267007473800015</li>
+    <li><span class="tr-text lang-hidden"><strong>Vergi Dairesi / No:</strong></span><span class="en-text"><strong>Tax office / no:</strong></span> Maslak V.D. · 2670074738</li>
+  </ul>
+
+  <h2><span class="tr-text lang-hidden">İletişim</span><span class="en-text">Contact</span></h2>
+  <p>
+    <span class="tr-text lang-hidden">E-posta:</span><span class="en-text">Email:</span> <a href="mailto:destek@konukla.com">destek@konukla.com</a><br>
+    <span class="tr-text lang-hidden">Telefon:</span><span class="en-text">Phone:</span> <a href="tel:+905306529108">+90 530 652 91 08</a><br>
+    <span class="tr-text lang-hidden">Web:</span><span class="en-text">Web:</span> <a href="https://konukla.com">konukla.com</a>
+  </p>
+
+  <p class="updated"><span class="tr-text lang-hidden">Son güncelleme: 2026-06-21</span><span class="en-text">Last updated: 2026-06-21</span></p>
 </main>
+
+<script>
+  // EN default (source) · TR · ES. Spanish overlaid from ES[] keyed on English
+  // text (markup preserved via innerHTML; missing keys fall back to English).
+  let lang = 'en';
+  const LANGS = ['en', 'tr', 'es'];
+  const norm = (s) => s.replace(/\s+/g, ' ').trim();
+
+  const ES = {
+    "Home": "Inicio",
+    "About us": "Sobre nosotros",
+    "Konukla is a QR-code ordering and payment platform for venues like restaurants, cafés, and hotels. Guests scan the QR code at their table to open the menu, place their order, and settle up securely. Venues manage every order from a single panel; the kitchen display, table tracking, and payment flow are integrated end to end.": "Konukla es una plataforma de <strong>pedidos y pagos por código QR</strong> para locales como restaurantes, cafeterías y hoteles. Los clientes escanean el código QR de su mesa para abrir el menú, hacer su pedido y pagar de forma segura. Los locales gestionan cada pedido desde un único panel; la pantalla de cocina, el seguimiento de mesas y el flujo de pago están integrados de principio a fin.",
+    "Our mission": "Nuestra misión",
+    "To remove the waiting and friction from ordering and payment — a fast, effortless experience for guests and an efficient, transparent one for venues.": "Eliminar la espera y la fricción del proceso de pedido y pago: una experiencia rápida y sin esfuerzo para los clientes, y eficiente y transparente para los locales.",
+    "What we do": "Qué hacemos",
+    "QR ordering: the guest scans the code at their table and orders from the digital menu.": "Pedido por QR: el cliente escanea el código de su mesa y pide desde el menú digital.",
+    "Secure payment at the table: payment is taken at the table on the restaurant's own POS. Konukla never processes or stores card data. In collaboration with Garanti BBVA.": "Pago seguro en la mesa: el pago se cobra en la mesa con el propio TPV del restaurante. Konukla nunca procesa ni almacena datos de tarjeta. En colaboración con Garanti BBVA.",
+    "Kitchen & table management: confirmed orders drop into the kitchen and the venue panel instantly.": "Gestión de cocina y mesas: los pedidos confirmados llegan a la cocina y al panel del local al instante.",
+    "Tips & receipts: guests can add a tip and receive their payment confirmation by email.": "Propinas y recibos: los clientes pueden añadir propina y recibir la confirmación del pago por correo electrónico.",
+    "Our partner": "Nuestro socio",
+    "Payment is taken at the table on the restaurant's own POS. Konukla never processes payments or stores card data. In collaboration with Garanti BBVA.": "El pago se cobra en la mesa con el propio TPV del restaurante. Konukla nunca procesa pagos ni almacena datos de tarjeta. En colaboración con Garanti BBVA.",
+    "Company details": "Datos de la empresa",
+    "Legal name:": "Razón social:",
+    "Address:": "Dirección:",
+    "MERSİS No:": "Nº MERSİS:",
+    "Tax office / no:": "Oficina fiscal / nº:",
+    "Contact": "Contacto",
+    "Email:": "Correo:",
+    "Phone:": "Teléfono:",
+    "Web:": "Web:",
+    "Last updated: 2026-06-21": "Última actualización: 2026-06-21"
+  };
+
+  function setLang(l) {
+    if (!LANGS.includes(l)) l = 'en';
+    lang = l;
+    document.documentElement.lang = l;
+    try { localStorage.setItem('konukla_lang', l); } catch (e) {}
+    const showEnglishSpans = l !== 'tr';
+    document.querySelectorAll('.tr-text').forEach(e => e.classList.toggle('lang-hidden', showEnglishSpans));
+    document.querySelectorAll('.en-text').forEach(e => e.classList.toggle('lang-hidden', l === 'tr'));
+    document.querySelectorAll('.en-text').forEach(e => {
+      if (e.dataset.enHtml === undefined) {
+        e.dataset.enHtml = e.innerHTML;
+        e.dataset.enKey = norm(e.textContent);
+      }
+      const es = ES[e.dataset.enKey];
+      e.innerHTML = (l === 'es' && es !== undefined) ? es : e.dataset.enHtml;
+    });
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim().toLowerCase() === l));
+  }
+
+  (function initLang() {
+    let saved = 'en';
+    try { saved = localStorage.getItem('konukla_lang') || 'en'; } catch (e) {}
+    setLang(LANGS.includes(saved) ? saved : 'en');
+  })();
+</script>
 </body>
 </html>
