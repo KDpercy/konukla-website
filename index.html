@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Konukla — Restoranlar için QR sipariş altyapısı</title>
-<meta name="description" content="Konukla, restoranlar için QR ile masadan sipariş çözümü. Müşteriler telefonlarından sipariş verir; ödeme masada, restoranın kendi POS cihazında kartla veya nakit, Garanti BBVA iş birliğiyle alınır. Konukla ödeme işlemez. Uygulama yok, aylık ücret yok.">
+<title>Konukla — QR ordering infrastructure for restaurants</title>
+<meta name="description" content="Konukla is QR table-ordering for restaurants. Customers order from their phones; payment is taken at the table on the restaurant's own POS, by card or cash, in collaboration with Garanti BBVA. Konukla never processes payments. No app, no monthly fee.">
 <link rel="canonical" href="https://konukla.com/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/assets/konukla-favicon.svg">
@@ -13,12 +13,12 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Konukla — Restoranlar için QR sipariş altyapısı">
-<meta property="og:description" content="Müşteriler QR ile telefonlarından sipariş veriyor; ödeme masada, restoranın kendi POS cihazında alınıyor. Garanti BBVA iş birliği. Uygulama yok, aylık ücret yok.">
+<meta property="og:title" content="Konukla — QR ordering infrastructure for restaurants">
+<meta property="og:description" content="Customers order from their phones via QR; payment is taken at the table on the restaurant's own POS. In collaboration with Garanti BBVA. No app, no monthly fee.">
 <meta property="og:image" content="https://konukla.com/assets/og-image.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Konukla — Restoranlar için QR ile masadan sipariş">
+<meta property="og:image:alt" content="Konukla — QR table ordering for restaurants">
 <meta property="og:url" content="https://konukla.com">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://konukla.com/assets/og-image.png?v=2">
@@ -445,15 +445,16 @@
 <nav id="nav">
   <a href="#" class="nav-logo" aria-label="Konukla"><img src="/assets/konukla-logo.png" alt="Konukla"></a>
   <div class="nav-links">
-    <a href="#how" data-tr="Nasıl çalışır" data-en="How it works">Nasıl çalışır</a>
-    <a href="#features" data-tr="Özellikler" data-en="Features">Özellikler</a>
-    <a href="#pricing" data-tr="Fiyatlandırma" data-en="Pricing">Fiyatlandırma</a>
-    <a href="#faq" data-tr="SSS" data-en="FAQ">SSS</a>
-    <a href="#demo" data-tr="Demo" data-en="Demo">Demo</a>
-    <a href="#contact" class="nav-btn lang-skip" id="nav-cta"><span class="tr-text">Erken erişim</span><span class="en-text lang-hidden">Early access</span></a>
+    <a href="#how" data-tr="Nasıl çalışır" data-en="How it works" data-es="Cómo funciona">How it works</a>
+    <a href="#features" data-tr="Özellikler" data-en="Features" data-es="Funciones">Features</a>
+    <a href="#pricing" data-tr="Fiyatlandırma" data-en="Pricing" data-es="Precios">Pricing</a>
+    <a href="#faq" data-tr="SSS" data-en="FAQ" data-es="Preguntas">FAQ</a>
+    <a href="#demo" data-tr="Demo" data-en="Demo" data-es="Demo">Demo</a>
+    <a href="#contact" class="nav-btn lang-skip" id="nav-cta"><span class="tr-text lang-hidden">Erken erişim</span><span class="en-text">Early access</span></a>
     <div class="lang-switcher lang-skip">
-      <button class="lang-btn active" onclick="setLang('tr')" aria-label="Türkçe">TR</button>
-      <button class="lang-btn" onclick="setLang('en')" aria-label="English">EN</button>
+      <button class="lang-btn active" onclick="setLang('en')" aria-label="English">EN</button>
+      <button class="lang-btn" onclick="setLang('tr')" aria-label="Türkçe">TR</button>
+      <button class="lang-btn" onclick="setLang('es')" aria-label="Español">ES</button>
     </div>
   </div>
 </nav>
@@ -926,22 +927,193 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // ── Language toggle ──
-  let currentLang = 'tr';
+  // ── Language toggle (EN default · TR · ES) ──
+  // English is the source language. Spanish is overlaid from ES[] keyed on the
+  // normalized English text, so no third span is needed in the markup and inner
+  // markup (<em>, links) is preserved via innerHTML. Missing ES keys fall back
+  // to English automatically.
+  let currentLang = 'en';
+  const LANGS = ['en', 'tr', 'es'];
+  const norm = (s) => s.replace(/\s+/g, ' ').trim();
+
+  /** Pick a value by the active language, falling back to English. */
+  function L(tr, en, es) {
+    return currentLang === 'tr' ? tr : currentLang === 'es' ? (es || en) : en;
+  }
+
+  const ES = {
+    "Early access is open.·Onboarding founding restaurants in Istanbul.": "<b>El acceso anticipado está abierto.</b><span class=\"dot\">·</span>Incorporando restaurantes fundadores en Estambul.",
+    "Early access": "Acceso anticipado",
+    "QR ordering, pay at the table": "Pide por QR, paga en la mesa",
+    "Order from the table, pay by phone.": "Pide desde la mesa, <em>paga con el móvil.</em>",
+    "Customers scan a QR code, order from their phone, and call the waiter to pay when they're ready. Orders land in the kitchen instantly. No app, no hardware, no monthly fee.": "Los clientes escanean un código QR, piden desde su móvil y llaman al camarero para pagar cuando quieren. Los pedidos llegan a la cocina al instante. Sin app, sin hardware, sin cuota mensual.",
+    "Try the demo": "Prueba la demo",
+    "Get early access": "Consigue acceso anticipado",
+    "Talk to sales": "Habla con ventas",
+    "setup & monthly fee": "instalación y cuota mensual",
+    "pay by card or cash": "paga con tarjeta o efectivo",
+    "No app": "Sin app",
+    "runs in the browser": "funciona en el navegador",
+    "items": "artículos",
+    "Backed by": "Con el respaldo de",
+    "From table to kitchen in seconds.": "De la mesa a la cocina en segundos.",
+    "Scan QR": "Escanea el QR",
+    "Order & pay": "Pide y paga",
+    "~30 sec": "~30 s",
+    "In the kitchen": "En la cocina",
+    "instantly": "al instante",
+    "How it works": "Cómo funciona",
+    "From table to kitchen in three steps.": "De la mesa a la cocina en tres pasos.",
+    "The entire ordering and payment flow runs on the customer's own phone — no staff involvement until the food is ready.": "Todo el flujo de pedido y pago ocurre en el propio móvil del cliente: sin intervención del personal hasta que la comida está lista.",
+    "Scan the QR": "Escanea el QR",
+    "A QR code on each table opens the menu in the browser. No app download, no account.": "Un código QR en cada mesa abre el menú en el navegador. Sin descargar app, sin cuenta.",
+    "Browse, customize, and order; call the waiter to pay when ready.": "Explora, personaliza y pide; llama al camarero para pagar cuando estés listo.",
+    "Kitchen gets it instantly": "La cocina lo recibe al instante",
+    "The moment payment clears, the order appears on the kitchen display. Status updates flow automatically.": "En cuanto se confirma el pago, el pedido aparece en la pantalla de cocina. Los estados se actualizan automáticamente.",
+    "Try Konukla yourself.": "Prueba Konukla tú mismo.",
+    "See the real ordering & payment flow on your phone — with a sample restaurant menu.": "Ve el flujo real de pedido y pago en tu móvil, con un menú de restaurante de ejemplo.",
+    "Scan the QR and try it now": "Escanea el QR y pruébalo ahora",
+    "Point your phone camera at the QR to jump straight into the live ordering experience.": "Apunta la cámara de tu móvil al QR para entrar directamente en la experiencia de pedido en vivo.",
+    "or": "o",
+    "Open the demo": "Abre la demo",
+    "Features": "Funciones",
+    "Built for restaurants.": "Diseñado para restaurantes.",
+    "Every detail designed around how venues actually operate — from multi-location chains to neighbourhood cafés.": "Cada detalle diseñado en torno a cómo funcionan de verdad los locales, desde cadenas con varias sedes hasta cafeterías de barrio.",
+    "QR menu & table ordering": "Menú QR y pedidos en mesa",
+    "Customers scan the table QR, open a digital menu, and order with full customization — all on their own phone, no waiting for staff.": "Los clientes escanean el QR de la mesa, abren un menú digital y piden con total personalización, todo en su móvil y sin esperar al personal.",
+    "No app download or account required": "Sin descargar app ni crear cuenta",
+    "Spice level, portion, extras, and notes": "Nivel de picante, ración, extras y notas",
+    "Live price and availability updates": "Precios y disponibilidad en tiempo real",
+    "Pay at the table": "Paga en la mesa",
+    "When your guest is ready, one tap calls the waiter; payment is taken at the table on the restaurant's own POS, by card or cash. Konukla never processes cards, so card data never touches any server.": "Cuando tu cliente está listo, un toque llama al camarero; el pago se cobra en la mesa con el propio TPV del restaurante, con tarjeta o en efectivo. Konukla nunca procesa tarjetas, así que los datos de la tarjeta no llegan a ningún servidor.",
+    "Pay by card or cash, at the table": "Paga con tarjeta o efectivo, en la mesa",
+    "On the restaurant's own POS": "En el propio TPV del restaurante",
+    "Konukla never handles card data": "Konukla nunca gestiona datos de tarjeta",
+    "Payment": "Pago",
+    "Tip": "Propina",
+    "Total": "Total",
+    "or pay by card": "o paga con tarjeta",
+    "Pay": "Pagar",
+    "Secure payment at the table": "Pago seguro en la mesa",
+    "Real-time kitchen display": "Pantalla de cocina en tiempo real",
+    "Paid orders appear on the kitchen tablet instantly — no tickets, no paper, no miscommunication. Preparing and ready states update with one tap.": "Los pedidos pagados aparecen al instante en la tablet de cocina: sin tickets, sin papel, sin malentendidos. Los estados «preparando» y «listo» se actualizan con un toque.",
+    "Drops in automatically once paid": "Aparece automáticamente al pagarse",
+    "Sound alerts and colour-coded states": "Alertas sonoras y estados por color",
+    "Works on any tablet or screen": "Funciona en cualquier tablet o pantalla",
+    "Everything a venue needs.": "Todo lo que un local necesita.",
+    "Multi-location menus": "Menús multi-local",
+    "Set a base menu at brand level; each location overrides price and availability independently.": "Define un menú base a nivel de marca; cada local ajusta precio y disponibilidad de forma independiente.",
+    "Customization options": "Opciones de personalización",
+    "Spice level, portion, extras, and notes — customers configure exactly what they want.": "Nivel de picante, ración, extras y notas: el cliente configura exactamente lo que quiere.",
+    "Restaurant analytics": "Analíticas del restaurante",
+    "Top dishes, peak hours, average order value, and table turnover.": "Platos más vendidos, horas punta, ticket medio y rotación de mesas.",
+    "No card handling": "Sin gestión de tarjetas",
+    "Payment happens at the table on the restaurant's own POS. Konukla never processes cards.": "El pago ocurre en la mesa con el propio TPV del restaurante. Konukla nunca procesa tarjetas.",
+    "No hardware needed": "Sin hardware",
+    "Your existing tablet or screen is enough. No new devices to buy.": "Tu tablet o pantalla actual es suficiente. No hay que comprar dispositivos nuevos.",
+    "No monthly fee": "Sin cuota mensual",
+    "No setup cost or subscription. You only pay when a transaction happens.": "Sin coste de instalación ni suscripción. Solo pagas cuando hay una transacción.",
+    "The opportunity": "La oportunidad",
+    "A clear gap in a large market.": "Un hueco claro en un gran mercado.",
+    "QR ordering is standard across Europe, the US, and Asia. Turkey's hundreds of thousands of venues are ready — the infrastructure hasn't arrived yet.": "El pedido por QR es estándar en Europa, EE. UU. y Asia. Los cientos de miles de locales de Turquía están listos: la infraestructura aún no ha llegado.",
+    "Dominant QR ordering platforms in Turkey today": "Plataformas de pedido por QR dominantes hoy en Turquía",
+    "Restaurant & café venues across Turkey": "Restaurantes y cafeterías en toda Turquía",
+    "Turkish foodservice revenue from dine-in (2025)": "Ingresos de hostelería turca por consumo en local (2025)",
+    "Pricing": "Precios",
+    "Pay only when a transaction happens.": "Paga solo cuando hay una transacción.",
+    "No setup cost, no monthly subscription. Konukla takes a small share of each payment processed through the platform.": "Sin coste de instalación ni suscripción mensual. Konukla se lleva una pequeña parte de cada pago procesado en la plataforma.",
+    "Standard": "Estándar",
+    "no setup or monthly fee · pay per transaction": "sin instalación ni cuota mensual · pago por transacción",
+    "Unlimited menu items": "Artículos de menú ilimitados",
+    "QR codes for all tables": "Códigos QR para todas las mesas",
+    "Kitchen display system": "Sistema de pantalla de cocina",
+    "Analytics dashboard": "Panel de analíticas",
+    "Email support": "Soporte por correo",
+    "Get started": "Empieza",
+    "Founding restaurant": "Restaurante fundador",
+    "First 20": "Primeros 20",
+    "special rate for founding restaurants · first 20 only": "tarifa especial para restaurantes fundadores · solo los primeros 20",
+    "Everything in Standard": "Todo lo del plan Estándar",
+    "Multi-location support": "Soporte multi-local",
+    "Priority support": "Soporte prioritario",
+    "Direct line to founders": "Línea directa con los fundadores",
+    "Shape the product roadmap": "Influye en la hoja de ruta del producto",
+    "Claim founding rate": "Consigue la tarifa de fundador",
+    "FAQ": "Preguntas",
+    "Frequently asked questions": "Preguntas frecuentes",
+    "How long does setup take?": "¿Cuánto tarda la instalación?",
+    "Once your menu is loaded you can go live within minutes. We generate the QR codes for your tables and hand them to you ready to print.": "Una vez cargado tu menú, puedes ponerlo en marcha en minutos. Generamos los códigos QR de tus mesas y te los entregamos listos para imprimir.",
+    "Do I need to buy any hardware?": "¿Necesito comprar algún hardware?",
+    "No. Customers use their own phones, and the kitchen display runs on any existing tablet or computer.": "No. Los clientes usan su propio móvil, y la pantalla de cocina funciona en cualquier tablet u ordenador que ya tengas.",
+    "Are payments secure?": "¿Los pagos son seguros?",
+    "Payment is taken at the table on the restaurant's own POS. Konukla never processes payments, so card data never touches any server. In collaboration with Garanti BBVA.": "El pago se cobra en la mesa con el propio TPV del restaurante. Konukla nunca procesa pagos, así que los datos de la tarjeta no llegan a ningún servidor. En colaboración con Garanti BBVA.",
+    "Do customers have to download an app?": "¿Los clientes tienen que descargar una app?",
+    "No. The QR code opens the menu directly in the phone's browser — no app download or account needed.": "No. El código QR abre el menú directamente en el navegador del móvil: sin descargar app ni crear cuenta.",
+    "I have multiple locations — is that supported?": "Tengo varios locales, ¿es compatible?",
+    "Yes. You set one base menu at brand level and manage price and availability per location independently.": "Sí. Defines un menú base a nivel de marca y gestionas precio y disponibilidad por local de forma independiente.",
+    "Is there a monthly or setup fee?": "¿Hay cuota mensual o de instalación?",
+    "No. There's no setup or monthly subscription fee — only a small share on transactions processed through the platform.": "No. No hay cuota de instalación ni suscripción mensual: solo una pequeña parte sobre las transacciones procesadas en la plataforma.",
+    "Be among the first restaurants on Konukla.": "Sé uno de los primeros restaurantes en Konukla.",
+    "We're onboarding a small group of founding restaurants in Istanbul. Claim your rate before we open to the public.": "Estamos incorporando a un pequeño grupo de restaurantes fundadores en Estambul. Consigue tu tarifa antes de que abramos al público.",
+    "Prefer to talk?": "¿Prefieres hablar?",
+    "Talk to our sales team →": "Habla con nuestro equipo de ventas →",
+    "I have read the Privacy Policy and KVKK notice, and consent to my information being processed for contact purposes.": "He leído la <a href=\"/legal/gizlilik-politikasi.html\" target=\"_blank\">Política de Privacidad</a> y el <a href=\"/legal/kvkk-aydinlatma-metni.html\" target=\"_blank\">aviso KVKK</a>, y consiento el tratamiento de mis datos con fines de contacto.",
+    "No payment required. We'll be in touch within 48 hours.": "No se requiere pago. Te contactamos en un plazo de 48 horas.",
+    "Contact:": "Contacto:",
+    "Built in Istanbul. Backed by BTM, ITO, and Garanti BBVA.": "Hecho en Estambul. Con el respaldo de BTM, ITO y Garanti BBVA.",
+    "Legal": "Legal",
+    "Policies": "Políticas",
+    "All rights reserved.": "Todos los derechos reservados.",
+    "Secure payment at the table. In collaboration with Garanti BBVA.": "Pago seguro en la mesa. En colaboración con Garanti BBVA.",
+    "This site uses essential cookies for functionality and security. See our Cookie Policy for details.": "Este sitio usa cookies esenciales para el funcionamiento y la seguridad. Consulta nuestra <a href=\"/legal/cerez-politikasi.html\">Política de Cookies</a> para más detalles.",
+    "Got it": "Vale"
+  };
+
   function setLang(lang) {
+    if (!LANGS.includes(lang)) lang = 'en';
     currentLang = lang;
     document.documentElement.lang = lang;
-    document.querySelectorAll('.tr-text').forEach(el => el.classList.toggle('lang-hidden', lang === 'en'));
+    try { localStorage.setItem('konukla_lang', lang); } catch (e) {}
+
+    const showEnglishSpans = lang !== 'tr'; // en + es both use the English spans
+    document.querySelectorAll('.tr-text').forEach(el => el.classList.toggle('lang-hidden', showEnglishSpans));
     document.querySelectorAll('.en-text').forEach(el => el.classList.toggle('lang-hidden', lang === 'tr'));
-    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.textContent.toLowerCase() === lang));
+
+    // Overlay Spanish onto the English spans (or restore English).
+    document.querySelectorAll('.en-text').forEach(el => {
+      if (el.dataset.enHtml === undefined) {
+        el.dataset.enHtml = el.innerHTML;
+        el.dataset.enKey = norm(el.textContent);
+      }
+      const es = ES[el.dataset.enKey];
+      el.innerHTML = (lang === 'es' && es !== undefined) ? es : el.dataset.enHtml;
+    });
+
+    // data-attr elements (e.g. nav links).
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const v = lang === 'tr' ? el.dataset.tr : lang === 'es' ? (el.dataset.es || el.dataset.en) : el.dataset.en;
+      if (v !== undefined) el.textContent = v;
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(btn =>
+      btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang));
+
     const pMap = {
       tr: { restaurant: 'Restoran adı', email: 'E-posta adresi', phone: 'Telefon numarası' },
-      en: { restaurant: 'Restaurant name', email: 'Email address', phone: 'Phone number' }
+      en: { restaurant: 'Restaurant name', email: 'Email address', phone: 'Phone number' },
+      es: { restaurant: 'Nombre del restaurante', email: 'Correo electrónico', phone: 'Número de teléfono' }
     };
     document.getElementById('input-restaurant').placeholder = pMap[lang].restaurant;
     document.getElementById('input-email').placeholder = pMap[lang].email;
     document.getElementById('input-phone').placeholder = pMap[lang].phone;
   }
+
+  // Apply saved language on load (English is the default / source language).
+  (function initLang() {
+    let saved = 'en';
+    try { saved = localStorage.getItem('konukla_lang') || 'en'; } catch (e) {}
+    setLang(LANGS.includes(saved) ? saved : 'en');
+  })();
 
   // ── Form submit → POST lead to the Konukla app ──
   const EARLY_ACCESS_ENDPOINT = 'https://admin.konukla.com/api/early-access';
@@ -956,7 +1128,7 @@
       consent: document.getElementById('input-consent').checked,
     };
     btn.disabled = true;
-    btn.innerHTML = currentLang === 'tr' ? 'Gönderiliyor…' : 'Sending…';
+    btn.innerHTML = L('Gönderiliyor…', 'Sending…', 'Enviando…');
     try {
       const res = await fetch(EARLY_ACCESS_ENDPOINT, {
         method: 'POST',
@@ -964,17 +1136,21 @@
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('bad status');
-      btn.innerHTML = currentLang === 'tr' ? 'Listeye eklendiniz ✓' : "You're on the list ✓";
+      btn.innerHTML = L('Listeye eklendiniz ✓', "You're on the list ✓", 'Estás en la lista ✓');
       btn.style.background = 'rgba(255,255,255,0.2)';
-      status.innerHTML = currentLang === 'tr'
-        ? '<span>Teşekkürler! 48 saat içinde size döneceğiz.</span>'
-        : "<span>Thanks! We'll be in touch within 48 hours.</span>";
+      status.innerHTML = '<span>' + L(
+        'Teşekkürler! 48 saat içinde size döneceğiz.',
+        "Thanks! We'll be in touch within 48 hours.",
+        '¡Gracias! Te contactaremos en un plazo de 48 horas.'
+      ) + '</span>';
     } catch (err) {
       btn.disabled = false;
-      btn.innerHTML = currentLang === 'tr' ? 'Kurucu oranını al' : 'Claim founding rate';
-      status.innerHTML = currentLang === 'tr'
-        ? '<span style="color:#ffb4a0">Gönderilemedi. Lütfen tekrar deneyin veya destek@konukla.com adresine yazın.</span>'
-        : '<span style="color:#ffb4a0">Could not send. Please try again or email destek@konukla.com.</span>';
+      btn.innerHTML = L('Kurucu oranını al', 'Claim founding rate', 'Consigue la tarifa de fundador');
+      status.innerHTML = '<span style="color:#ffb4a0">' + L(
+        'Gönderilemedi. Lütfen tekrar deneyin veya destek@konukla.com adresine yazın.',
+        'Could not send. Please try again or email destek@konukla.com.',
+        'No se pudo enviar. Inténtalo de nuevo o escribe a destek@konukla.com.'
+      ) + '</span>';
     }
   }
 
